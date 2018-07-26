@@ -2,7 +2,10 @@
 {% block title %}Home{% endblock title %}
 {% block nav-style %}mkt-nav{% endblock nav-style %}
 
+{% load static %}
+
 {% block content %}
+    <img src="{% static "Image1.png" %}" alt="img">
     <h1> Concepts </h1>
     <ul>
     {% for concept in concepts %}
