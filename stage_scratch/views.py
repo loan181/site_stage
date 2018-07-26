@@ -12,9 +12,11 @@ def index(request):
 
 def concept(request, concept_name):
     conceptInfo = get_object_or_404(Concept, conceptName=concept_name)
+    conceptExamples = conceptInfo.conceptexample_set.all()
 
     context = {
-        'concept' : conceptInfo
+        'concept' : conceptInfo,
+        'conceptExamples' : conceptExamples
     }
     return render(request, 'concept.html', context)
 

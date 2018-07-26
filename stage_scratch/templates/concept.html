@@ -10,4 +10,25 @@
     <h3>{{ concept.conceptDescription.conceptDescription }}</h3>
 
     <img src="{% static concept.conceptDescription.conceptBlocks.url %}" alt="blocs">
+
+
+    <div class="panel-group" id="accordion">
+        {% for example in conceptExamples %}
+            <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}">
+                {{ example.exampleName}}
+                </a>
+              </h4>
+            </div>
+            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+              <div class="panel-body">
+                  {{ example.exampleText }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+
 {% endblock content %}
