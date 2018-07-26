@@ -21,3 +21,6 @@ def concept(request, concept_name):
     return render(request, 'concept.html', context)
 
 # Create your views here.
+def test(request):
+    context = {}
+    return render(request, 'test.html', context)

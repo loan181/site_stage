@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}TESTS{% endblock title %}
+{% block nav-style %}mkt-nav{% endblock nav-style %}
+
+{% load static %}
+
+{% block content %}
+    <h1> Tests </h1>
+
+    <h2> Mettre une image : </h2>
+    <img src="{% static "Image1.png" %}" alt="img">
+
+    <h2> Insérer des blocs personnalisés Scratch : </h2>
+    <pre class="blocks">
+        quand le drapeau vert pressé
+        répéter indéfiniment
+            tourner droite de (15) degrés
+            dire [Coucou !] pendant (2) secondes
+            si &lt;souris pressée?&gt; alors
+                ajouter à [var v] (1)
+    </pre>
+
+
+{% endblock content %}
