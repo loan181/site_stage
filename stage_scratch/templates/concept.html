@@ -2,11 +2,12 @@
 {% block title %}Concepte | {{ concept.conceptName }}{% endblock title %}
 {% block nav-style %}mkt-nav{% endblock nav-style %}
 
+{% load static %}
+
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
-    <ul>
-    {% for concept in concepts %}
-        <li> <a href="{% url 'concept' concept %}"> concept </a></li>
-    {% endfor %}
-    </ul>
+
+    <h3>{{ concept.conceptDescription.conceptDescription }}</h3>
+
+    <img src="{% static concept.conceptDescription.conceptBlocks.url %}" alt="blocs">
 {% endblock content %}
