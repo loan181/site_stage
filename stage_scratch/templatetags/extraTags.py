@@ -4,15 +4,14 @@ from django import template
 register = template.Library()
 
 @register.filter
-def replaceByPicture(value, path):
-    p = getattr()
+def replaceBBCode(value, staticPath):
     bbdata = [
         # (r'\[url\](.+?)\[/url\]', r'<a href="\1">\1</a>'),
         # (r'\[url=(.+?)\](.+?)\[/url\]', r'<a href="\1">\2</a>'),
         # (r'\[email\](.+?)\[/email\]', r'<a href="mailto:\1">\1</a>'),
         # (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
-        (r'\[img\](.+?)\[/img\]', r'<img src="'+path+r'\1">'),
-        (r'\[img=(.+?)\](.+?)\[/img\]', r'<img src="'+path+r'\1" alt="\2">'),
+        (r'\[img\](.+?)\[/img\]', r'<img src="'+staticPath+r'\1">'),
+        (r'\[img=(.+?)\](.+?)\[/img\]', r'<img src="'+staticPath+r'\1" alt="\2">'),
         # (r'\[b\](.+?)\[/b\]', r'<b>\1</b>'),
         # (r'\[i\](.+?)\[/i\]', r'<i>\1</i>'),
         # (r'\[u\](.+?)\[/u\]', r'<u>\1</u>'),
@@ -26,5 +25,5 @@ def replaceByPicture(value, path):
     for bbset in bbdata:
         p = re.compile(bbset[0], re.DOTALL)
         value = p.sub(bbset[1], value)
-    print(value)
+
     return value

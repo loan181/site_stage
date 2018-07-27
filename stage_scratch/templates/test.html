@@ -23,8 +23,11 @@
     Ou inline : <code class="blocksInline">tourner droite de (15) degrés</code> trop cool !
 
     <h2>Ajout d'image depuis du texte :</h2>
+
     {% get_static_prefix as staticPath %}
-    {{ testString|replaceByPicture:staticPath|safe }}
+    {{ testString|replaceBBCode:staticPath|safe }}
+    <br>
+
 
     {% comment %}
     {% replaceByPicture testString STATIC_URL %}
