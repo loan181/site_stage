@@ -3,6 +3,7 @@
 {% block nav-style %}mkt-nav{% endblock nav-style %}
 
 {% load static %}
+{% load extraTags %}
 
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
@@ -37,12 +38,11 @@
             </div>
             <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
               <div class="panel-body">
-                  {{ example.exampleText|safe }}
+                  {{ example.exampleText|replaceByPicture|safe }}
               </div>
             </div>
           </div>
         {% endfor %}
     </div>
-
 
 {% endblock content %}

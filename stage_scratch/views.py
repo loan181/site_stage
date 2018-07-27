@@ -22,5 +22,5 @@ def concept(request, concept_name):
 
 # Create your views here.
 def test(request):
-    context = {}
+    context = {'testString' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static"}
     return render(request, 'test.html', context)
