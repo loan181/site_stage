@@ -8,7 +8,7 @@
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
 
-    <h3>{{ concept.conceptDescription.conceptDescription }}</h3>
+    <h4>{{ concept.conceptPreBlocksDescription }}</h4>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -20,10 +20,27 @@
         </div>
         <div id="collapseBlock" class="panel-collapse collapse in">
           <div class="panel-body">
-              <img src="{% static concept.conceptDescription.conceptBlocks.url %}" alt="blocs">
+              <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Bloc</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for block in conceptBlocks %}
+                          <tr>
+                            <td>{{ block.blockJson |scratchBlock|safe}}</td>
+                            <td>{{ block.blockDescription }}</td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
           </div>
         </div>
     </div>
+
+    {{ concept.conceptPostBlocksDescription|replaceBBCode|safe }}
 
     <h3> Exemples </h3>
     <div class="panel-group" id="accordionExamples">

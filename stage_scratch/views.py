@@ -12,13 +12,13 @@ def index(request):
 
 def concept(request, concept_name):
     conceptInfo = get_object_or_404(Concept, conceptName=concept_name)
+    conceptBlocks = conceptInfo.scratchblock_set.all()
     conceptExamples = conceptInfo.conceptexample_set.all()
     conceptExercises = conceptInfo.conceptexercise_set.all()
 
-    print(conceptExercises)
-
     context = {
         'concept' : conceptInfo,
+        'conceptBlocks' : conceptBlocks,
         'conceptExamples' : conceptExamples,
         'conceptExercises' : conceptExercises,
     }

@@ -1,17 +1,11 @@
 from django.db import models
 
 
-class ConceptDescriptions(models.Model):
-    conceptDescription = models.TextField()
-    conceptBlocks = models.ImageField()
-
-    def __str__(self):
-        return self.conceptDescription
-
-
 class Concept(models.Model):
     conceptName = models.CharField(max_length=100)
-    conceptDescription = models.OneToOneField(ConceptDescriptions, null=True, on_delete=models.SET_NULL)
+    conceptPreBlocksDescription = models.TextField(default="")
+    # conceptBlocks = models.ImageField()
+    conceptPostBlocksDescription = models.TextField(default="")
 
     def __str__(self):
         return self.conceptName
@@ -46,3 +40,11 @@ class ConceptExerciseHint(models.Model):
     def __str__(self):
         return "indice " + str(self.hintNumber) + " de " + str(self.hintExercise)
 
+
+class ScratchBlock(models.Model):
+    blockJson = models.CharField(max_length=200) # Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json
+    blockDescription = models.TextField()
+    relatedConcept = models.ForeignKey(Concept, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return "Bloc : " +str(self.blockJson)

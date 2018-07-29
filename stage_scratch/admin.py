@@ -2,12 +2,7 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(Concept)
-admin.site.register(ConceptDescriptions)
-admin.site.register(ConceptExample)
-admin.site.register(ConceptExercise)
-admin.site.register(ConceptExerciseHint)
+toRegister = (Concept, ConceptExample, ConceptExercise, ConceptExerciseHint, ScratchBlock)
 
-
-
-# Register your models here.
+for toReg in toRegister :
+    admin.site.register(toReg)

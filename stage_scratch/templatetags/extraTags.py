@@ -56,6 +56,10 @@ bbdata = {
 def scratchBlocks(value):
      return replaceBBCodeContent(value, r'\[scratchBlocks\](.+?)\[/scratchBlocks\]')
 
+@register.filter
+def scratchBlock(value):
+     return replaceBBCodeContent(value, r'\[scratchBlock\](.+?)\[/scratchBlock\]')
+
 
 @register.filter
 def scratchOnlineProject(value):
