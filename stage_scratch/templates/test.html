@@ -46,10 +46,8 @@
         </div>
     </div>
 
-
-    {% comment %}
-    {% replaceByPicture testString STATIC_URL %}
-    {% endcomment %}
+    <h2> Projet Scratch intégré </h2>
+    {{ testEmbedScratchProject|replaceBBCode|safe }}
 
 
 {% endblock content %}

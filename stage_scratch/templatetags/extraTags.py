@@ -39,6 +39,11 @@ def replaceBBCode(value):
         r'\[scratchBlock\](.+?)\[/scratchBlock\]': r"""
                 <code class="blocksInline">\1</code>
         """,
+        r'\[/scratchProject=(.+?)\]':r"""
+                  <iframe allowtransparency="true" width="485" height="402" src="//scratch.mit.edu/projects/embed/\1/?autostart=false" frameborder="0" allowfullscreen>
+                  </iframe>
+    
+        """,
         r'\[b\](.+?)\[/b\]': r'<b>\1</b>',
         r'\[i\](.+?)\[/i\]': r'<i>\1</i>',
         r'\[u\](.+?)\[/u\]': r'<u>\1</u>',
