@@ -38,7 +38,7 @@ class ConceptExercise(models.Model):
         return "Ex "+str(self.exerciseNumber)+" : "+self.exerciseName + ' (' + str(self.exerciseConcept) + ')'
 
 
-class ConceptExerciceHint(models.Model):
+class ConceptExerciseHint(models.Model):
     hintName = models.CharField(max_length=100)
     hintExercise = models.ForeignKey(ConceptExercise, null=True, on_delete=models.SET_NULL)
     hintNumber = models.IntegerField()
