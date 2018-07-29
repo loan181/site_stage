@@ -12,6 +12,7 @@ bbdata = {
     # (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
     r'\[img\](.+?)\[/img\]': r'<img src="' + staticPath + r'\1">',
     r'\[img=(.+?)\](.+?)\[/img\]': r'<img src="' + staticPath + r'\1" alt="\2">',
+    r'\[img w=(.+?)\ h=(.+?)](.+?)\[/img\]': r'<img src="' + staticPath + r'\3" weight="\1" height="\2">',
     r'\[spoil=(.+?)\](.+?)\[/spoil\]': r"""
             <div class="panel panel-default">
                 <div class="panel-heading">
