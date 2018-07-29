@@ -25,18 +25,18 @@
         </div>
     </div>
 
-
+    <h3> Exemples </h3>
     <div class="panel-group" id="accordionExamples">
         {% for example in conceptExamples %}
             <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordionExamples" href="#collapse{{ forloop.counter }}">
+                <a data-toggle="collapse" data-parent="#accordionExamples" href="#collapseExample{{ forloop.counter }}">
                     {{ example.exampleName}}
                 </a>
               </h4>
             </div>
-            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+            <div id="collapseExample{{ forloop.counter }}" class="panel-collapse collapse">
               <div class="panel-body">
                   <div class="row">
                       <div class="col-sm-6">
@@ -48,6 +48,28 @@
                           <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
                       </div>
                   </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+
+
+    <h3>Défis</h3>
+    <div class="panel-group" id="accordionExercises">
+        {% for exercise in conceptExercises %}
+            <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionExercises" href="#collapseExercise{{ forloop.counter }}">
+                    Défi {{ forloop.counter }} : {{ exercise.exerciseName}}
+                </a>
+              </h4>
+            </div>
+            <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
+              <div class="panel-body">
+                  {{ exercise.exerciseStatement }}
 
               </div>
             </div>

@@ -39,8 +39,10 @@ class ConceptExercise(models.Model):
 
 
 class ConceptExerciseHint(models.Model):
-    hintName = models.CharField(max_length=100)
     hintExercise = models.ForeignKey(ConceptExercise, null=True, on_delete=models.SET_NULL)
     hintNumber = models.IntegerField()
     hintContent = models.TextField()
+
+    def __str__(self):
+        return "indice " + str(self.hintNumber) + " de " + str(self.hintExercise)
 
