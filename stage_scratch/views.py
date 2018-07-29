@@ -24,6 +24,6 @@ def concept(request, concept_name):
 def test(request):
     context = {
         'testStringPicture' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static",
-        'testStringSpoiler' : "Spoiler : [spoil=titre] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] de dingue",
+        'testStringSpoiler' : "Spoiler : [spoil=titre] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] dingue",
     }
     return render(request, 'test.html', context)

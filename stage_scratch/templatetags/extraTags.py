@@ -31,9 +31,17 @@ def replaceBBCode(value):
                 </div>
             </div>
         """,
-        # (r'\[b\](.+?)\[/b\]', r'<b>\1</b>'),
-        # (r'\[i\](.+?)\[/i\]', r'<i>\1</i>'),
-        # (r'\[u\](.+?)\[/u\]', r'<u>\1</u>'),
+        r'\[scratchBlocks\](.+?)\[/scratchBlocks\]': r"""
+            <pre class="blocks">
+                \1
+            </pre>
+        """,
+        r'\[scratchBlock\](.+?)\[/scratchBlock\]': r"""
+                <code class="blocksInline">\1</code>
+        """,
+        r'\[b\](.+?)\[/b\]': r'<b>\1</b>',
+        r'\[i\](.+?)\[/i\]': r'<i>\1</i>',
+        r'\[u\](.+?)\[/u\]': r'<u>\1</u>',
         # (r'\[quote\](.+?)\[/quote\]', r'<div style="margin-left: 1cm">\1</div>'),
         # (r'\[center\](.+?)\[/center\]', r'<div align="center">\1</div>'),
         # (r'\[code\](.+?)\[/code\]', r'<tt>\1</tt>'),
