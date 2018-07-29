@@ -15,6 +15,22 @@ def replaceBBCode(value):
         # (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
         (r'\[img\](.+?)\[/img\]', r'<img src="'+staticPath+r'\1">'),
         (r'\[img=(.+?)\](.+?)\[/img\]', r'<img src="'+staticPath+r'\1" alt="\2">'),
+        (r'\[spoil=(.+?)\](.+?)\[/spoil\]', r"""
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#\1Collapsable">
+                        \1
+                    </a>
+                  </h4>
+                </div>
+                <div id="\1Collapsable" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                      \2
+                  </div>
+                </div>
+            </div>
+        """),
         # (r'\[b\](.+?)\[/b\]', r'<b>\1</b>'),
         # (r'\[i\](.+?)\[/i\]', r'<i>\1</i>'),
         # (r'\[u\](.+?)\[/u\]', r'<u>\1</u>'),
@@ -25,8 +41,6 @@ def replaceBBCode(value):
         # (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
     ]
 
-    # TODO : add BBCode for spoiler image
-    
     for bbset in bbdata:
         p = re.compile(bbset[0], re.DOTALL)
         value = p.sub(bbset[1], value)
