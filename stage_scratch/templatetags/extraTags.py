@@ -1,10 +1,13 @@
 import re
 from django import template
+from django.templatetags.static import static
+
 
 register = template.Library()
 
 @register.filter
-def replaceBBCode(value, staticPath):
+def replaceBBCode(value):
+    staticPath = static('')
     bbdata = [
         # (r'\[url\](.+?)\[/url\]', r'<a href="\1">\1</a>'),
         # (r'\[url=(.+?)\](.+?)\[/url\]', r'<a href="\1">\2</a>'),
@@ -22,6 +25,8 @@ def replaceBBCode(value, staticPath):
         # (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
     ]
 
+    # TODO : add BBCode for spoiler image
+    
     for bbset in bbdata:
         p = re.compile(bbset[0], re.DOTALL)
         value = p.sub(bbset[1], value)

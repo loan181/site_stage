@@ -24,8 +24,7 @@
 
     <h2>Ajout d'image depuis du texte :</h2>
 
-    {% get_static_prefix as staticPath %}
-    {{ testString|replaceBBCode:staticPath|safe }}
+    {{ testString|replaceBBCode|safe }}
     <br>
 
 
