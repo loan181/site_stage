@@ -15,6 +15,7 @@ def concept(request, concept_name):
     conceptExamples = conceptInfo.conceptexample_set.all()
     conceptExercises = conceptInfo.conceptexercise_set.all()
 
+    print(conceptExercises)
 
     context = {
         'concept' : conceptInfo,
@@ -23,7 +24,7 @@ def concept(request, concept_name):
     }
     return render(request, 'concept.html', context)
 
-# Create your views here.
+
 def test(request):
     context = {
         'testStringPicture' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static",
