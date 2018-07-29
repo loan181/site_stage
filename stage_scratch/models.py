@@ -28,3 +28,19 @@ class ConceptExample(models.Model):
         return self.exampleName + ' (' + str(self.exampleConcept) + ')'
 
 
+class ConceptExercise(models.Model):
+    exerciseName = models.CharField(max_length=100)
+    exerciseConcept = models.ForeignKey(Concept, null=True, on_delete=models.SET_NULL)
+    exerciseNumber = models.IntegerField()
+    exerciseStatement = models.TextField()
+
+    def __str__(self):
+        return "Ex "+str(self.exerciseNumber)+" : "+self.exerciseName + ' (' + str(self.exerciseConcept) + ')'
+
+
+class ConceptExerciceHint(models.Model):
+    hintName = models.CharField(max_length=100)
+    hintExercise = models.ForeignKey(ConceptExercise, null=True, on_delete=models.SET_NULL)
+    hintNumber = models.IntegerField()
+    hintContent = models.TextField()
+
