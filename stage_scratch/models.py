@@ -20,7 +20,9 @@ class Concept(models.Model):
 class ConceptExample(models.Model):
     exampleName = models.CharField(max_length=100)
     exampleConcept = models.ForeignKey(Concept, null=True, on_delete=models.SET_NULL)
+    exampleBlocks = models.TextField(null=True)
     exampleText = models.TextField()
+    exampleOnlineProjectId = models.IntegerField(null=True)
 
     def __str__(self):
         return self.exampleName + ' (' + str(self.exampleConcept) + ')'

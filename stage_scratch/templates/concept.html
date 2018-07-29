@@ -38,7 +38,17 @@
             </div>
             <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
               <div class="panel-body">
-                  {{ example.exampleText|replaceBBCode|safe }}
+                  <div class="row">
+                      <div class="col-sm-6">
+                          {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
+                      </div>
+                      <div class="col-sm-6">
+                          {{ example.exampleBlocks|scratchBlocks|safe }}
+                          {{ example.exampleText|replaceBBCode|safe }}
+                          <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                      </div>
+                  </div>
+
               </div>
             </div>
           </div>
