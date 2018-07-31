@@ -14,12 +14,13 @@ class Concept(models.Model):
 class ConceptExample(models.Model):
     exampleName = models.CharField(max_length=100)
     exampleConcept = models.ForeignKey(Concept, null=True, on_delete=models.SET_NULL)
+    exampleNumber = models.IntegerField(default=0)
     exampleBlocks = models.TextField(null=True)
     exampleText = models.TextField()
     exampleOnlineProjectId = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.exampleName + ' (' + str(self.exampleConcept) + ')'
+        return "Exemple " + str(self.exampleNumber) + " de " + str(self.exampleConcept) + " : " + self.exampleName
 
 
 class ConceptExercise(models.Model):
