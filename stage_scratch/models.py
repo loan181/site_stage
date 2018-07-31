@@ -5,7 +5,7 @@ class Concept(models.Model):
     conceptName = models.CharField(max_length=100)
     conceptPreBlocksDescription = models.TextField(default="")
     # conceptBlocks = models.ImageField()
-    conceptPostBlocksDescription = models.TextField(default="")
+    conceptPostBlocksDescription = models.TextField(default="", blank=True, null=True)
 
     def __str__(self):
         return self.conceptName
@@ -46,7 +46,7 @@ class ScratchBlock(models.Model):
     blockJson = models.CharField(max_length=200) # Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json
     blockDescription = models.TextField()
     relatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept nécessitant l'utilisation de ce bloc")
-    additionalBlocks = models.ManyToManyField(ConceptExercise, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
+    additionalBlocks = models.ManyToManyField(ConceptExercise, blank=True, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
 
     def __str__(self):
         return "Bloc : " +str(self.blockJson)
