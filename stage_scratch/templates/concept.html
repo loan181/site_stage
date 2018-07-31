@@ -87,7 +87,35 @@
             <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
                 <div class="panel-body">
                     {{ exercise.exerciseStatement }}
+                
+                    {# Additional blocks template if needed #}
+                    {% if exercise.scratchblock_set.all%}
+                        <div class="well">
+                            Les blocs suivants te seront utiles pour résoudre cet exercice :
+                            <div id="collapseBlock" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                  <table class="table table-bordered">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Bloc</th>
+                                          <th scope="col">Description</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for additionnalBlocks in exercise.scratchblock_set.all %}
+                                              <tr>
+                                                <td>{{ additionnalBlocks.blockJson|scratchBlock|safe}}</td>
+                                                <td>{{ additionnalBlocks.blockDescription }}</td>
+                                              </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                            </div>
+                        </div>
+                    {% endif %}
 
+                    {# Hints for the current exercice  #}
                     <div class="panel-group" id="accordionExerciseHint{{ forloop.counter }}">
                         {% for hint in exercise.conceptexercisehint_set.all %}
                             <div class="panel panel-default">
