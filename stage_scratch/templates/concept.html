@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-sm-6">
                                 {{ example.exampleBlocks|scratchBlocks|safe }}
-                                {{ example.exampleText|replaceBBCode|safe }}
+                                {{ example.exampleText|replaceBBCode|safe|linebreaks }}
                                 <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div id="collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        {{ hint.hintContent }}
+                                        {{ hint.hintContent|replaceBBCode|safe|linebreaks }}
                                     </div>
                                 </div>
                             </div>
