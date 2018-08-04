@@ -8,7 +8,7 @@
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
 
-    <h4>{{ concept.conceptPreBlocksDescription }}</h4>
+    <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -86,7 +86,7 @@
             </div>
             <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
                 <div class="panel-body">
-                    {{ exercise.exerciseStatement }}
+                    {{ exercise.exerciseStatement|replaceBBCode|safe|linebreaks }}
                 
                     {# Additional blocks template if needed #}
                     {% if exercise.scratchblock_set.all%}

@@ -30,7 +30,7 @@ class ConceptExercise(models.Model):
     exerciseStatement = models.TextField()
 
     def __str__(self):
-        return "Ex "+str(self.exerciseNumber)+" : "+self.exerciseName + ' (' + str(self.exerciseConcept) + ')'
+        return "Ex "+str(self.exerciseNumber)+ ' (' + str(self.exerciseConcept) + ')'+" : "+self.exerciseName
 
 
 class ConceptExerciseHint(models.Model):
@@ -43,7 +43,7 @@ class ConceptExerciseHint(models.Model):
 
 
 class ScratchBlock(models.Model):
-    blockJson = models.CharField(max_length=200) # Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json
+    blockJson = models.CharField(max_length=200, help_text="Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json")
     blockDescription = models.TextField()
     relatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept nécessitant l'utilisation de ce bloc")
     additionalBlocks = models.ManyToManyField(ConceptExercise, blank=True, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
