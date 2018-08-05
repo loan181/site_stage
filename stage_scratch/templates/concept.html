@@ -75,25 +75,12 @@
                             </div>
                         {% endif %}
 
-                        {# Hints for the current exercice  #}
-                        <div class="panel-group" id="accordionExerciseHint{{ forloop.counter }}">
+                        {# Hints for the current exercice (no need for accordions as several can be opend at once) #}
+                        {% autoescape off %}
                             {% for hint in exercise.conceptexercisehint_set.all %}
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="accordionExerciseHint{{ forloop.parentloop.counter }}" href="#collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}">
-                                                Indice {{ forloop.counter }}
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            {{ hint.hintContent|replaceBBCode|safe|linebreaks }}
-                                        </div>
-                                    </div>
-                                </div>
+                                {% spoil "Indice "|addStr:forloop.counter hint.hintContent|replaceBBCode|safe|linebreaks False "hint"|addStr:forloop.counter|addStr:"ex"|addStr:forloop.parentloop.counter%}
                             {% endfor %}
-                        </div>
+                        {% endautoescape %}
                     </div>
                 </div>
             </div>

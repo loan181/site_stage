@@ -64,6 +64,13 @@ bbdata = {
     # (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
 }
 
+@register.filter
+def addStr(arg1, arg2):
+    """concatenate arg1 & arg2"""
+    return str(arg1) + str(arg2)
+
+
+
 def word_replace(replace_dict, s):
     for key, val in replace_dict.items():
         s = s.replace(key, val)
