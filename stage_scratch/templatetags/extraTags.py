@@ -93,3 +93,47 @@ def createScratchWikiLink(value):
     for old, new in toReplace:
         value = value.replace(old, new)
     return preUrl+value+postUrl
+
+@register.filter
+# Pas réussi à faire fonctionner correctement :(
+def createBlocksTable(blocks):
+    res = ""
+
+    pre = """
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Bloc</th>
+            <th scope="col">Description</th>
+            <th scope="col">Doc</th>
+        </tr>
+        </thead>
+        <tbody>
+    """
+    res += pre
+
+    content = """
+    <tr>
+        <td>{{ block.blockJson |scratchBlock|safe}}</td>
+        <td>{{ block.blockDescription }}</td>
+        <td align="center">
+            <a href="{{ block.blockJson | createScratchWikiLink }}" target="_blank">
+              <span class="glyphicon glyphicon-link"></span>
+            </a>
+        </td>
+    </tr>
+    """
+    modContent = content
+    for block in blocks:
+        modContent = modContent.replace("block.blockJson", block.blockJson)
+        modContent = modContent.replace("block.blockDescription", block.blockDescription)
+    res += modContent
+
+    post = """
+        </tbody>
+    </table>
+    """
+    res += post
+
+    return res
+
