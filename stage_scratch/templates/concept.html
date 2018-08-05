@@ -140,4 +140,14 @@
         {% endfor %}
     </div>
 
+    {# Buttons to previous and next section #}
+    {% if conceptLast != None %}
+            <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
+    {% endif %}
+
+    {% if conceptNext != None %}
+        <a href="{% url 'concept' conceptNext %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ conceptNext }} &raquo;</a>
+    {% endif %}
+
+
 {% endblock content %}

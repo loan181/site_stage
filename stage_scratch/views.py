@@ -16,11 +16,22 @@ def concept(request, concept_name):
     conceptExamples = conceptInfo.conceptexample_set.all()
     conceptExercises = conceptInfo.conceptexercise_set.all()
 
+    nextConcept = Concept.objects.filter(id__gt=conceptInfo.id).order_by('id')[:1].first()
+    lastConcept = Concept.objects.filter(id__lt=conceptInfo.id).order_by('id')[:1].first()
+    nextConceptName = None
+    if nextConcept != None:
+        nextConceptName = nextConcept.conceptName
+    lastConceptName = None
+    if lastConcept != None:
+        lastConceptName = lastConcept.conceptName
+
     context = {
         'concept' : conceptInfo,
         'conceptBlocks' : conceptBlocks,
         'conceptExamples' : conceptExamples,
         'conceptExercises' : conceptExercises,
+        'conceptNext' : nextConceptName,
+        'conceptLast' : lastConceptName,
     }
     return render(request, 'concept.html', context)
 
