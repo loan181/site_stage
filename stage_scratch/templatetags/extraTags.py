@@ -52,6 +52,10 @@ bbdata = {
     # (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
 }
 
+def word_replace(replace_dict, s):
+    for key, val in replace_dict.items():
+        s = s.replace(key, val)
+    return s
 
 @register.filter
 def scratchBlocks(value):
@@ -89,9 +93,8 @@ def replaceBBCode(value):
 def createScratchWikiLink(value):
     preUrl = "https://fr.scratch-wiki.info/wiki/"
     postUrl = "_(bloc)"
-    toReplace = {(" ", "_"), ("[", "("), ("]", ")")}
-    for old, new in toReplace:
-        value = value.replace(old, new)
+    toReplace = {" ": "_", "[": "(", "]": ")"}
+    value = word_replace(toReplace, value)
     return preUrl+value+postUrl
 
 @register.filter
@@ -112,22 +115,25 @@ def createBlocksTable(blocks):
     """
     res += pre
 
-    content = """
+    content = r"""
     <tr>
-        <td>{{ block.blockJson |scratchBlock|safe}}</td>
-        <td>{{ block.blockDescription }}</td>
+        <td>[blockJson]</td>
+        <td>[blockDesc]</td>
         <td align="center">
-            <a href="{{ block.blockJson | createScratchWikiLink }}" target="_blank">
+            <a href="[blockWikiLink]" target="_blank">
               <span class="glyphicon glyphicon-link"></span>
             </a>
         </td>
     </tr>
     """
-    modContent = content
+    print(blocks)
     for block in blocks:
-        modContent = modContent.replace("block.blockJson", block.blockJson)
-        modContent = modContent.replace("block.blockDescription", block.blockDescription)
-    res += modContent
+        subDict = {
+            "[blockJson]" : scratchBlock(block.blockJson),
+            "[blockDesc]" : block.blockDescription,
+            "[blockWikiLink]" : createScratchWikiLink(block.blockJson)
+        }
+        res += word_replace(subDict, content)
 
     post = """
         </tbody>

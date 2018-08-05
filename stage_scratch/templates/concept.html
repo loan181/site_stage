@@ -20,6 +20,8 @@
         </div>
         <div id="collapseBlock" class="panel-collapse collapse in">
             <div class="panel-body">
+                {{ conceptBlocks | createBlocksTable | safe }}
+
                 <table class="table table-bordered">
                     <thead>
                     <tr>
