@@ -5,46 +5,58 @@ from django.templatetags.static import static
 register = template.Library()
 staticPath = static('')
 
+# All BB data string regex
+class BbRegex :
+    bold = r'\[b\](.+?)\[/b\]'
+    italic = r'\[i\](.+?)\[/i\]'
+    underline = r'\[u\](.+?)\[/u\]'
+    img = r'\[img\](.+?)\[/img\]'
+    imgAlt = r'\[img=(.+?)\](.+?)\[/img\]'
+    imgSize = r'\[img w=(.+?)\ h=(.+?)](.+?)\[/img\]'
+    spoil = r'\[spoil title=(.+?) id=(.+?)\](.+?)\[/spoil\]'
+    scratchBlock = r'\[scratchBlock\](.+?)\[/scratchBlock\]'
+    scratchBlocks = r'\[scratchBlocks\](.+?)\[/scratchBlocks\]'
+    scratchProject = r'\[/scratchProject=(.+?)\]'
+
+
 bbdata = {
     # (r'\[url\](.+?)\[/url\]', r'<a href="\1">\1</a>'),
     # (r'\[url=(.+?)\](.+?)\[/url\]', r'<a href="\1">\2</a>'),
     # (r'\[email\](.+?)\[/email\]', r'<a href="mailto:\1">\1</a>'),
     # (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
-    r'\[img\](.+?)\[/img\]': r'<img src="' + staticPath + r'\1">',
-    r'\[img=(.+?)\](.+?)\[/img\]': r'<img src="' + staticPath + r'\1" alt="\2">',
-    r'\[img w=(.+?)\ h=(.+?)](.+?)\[/img\]': r'<img src="' + staticPath + r'\3" weight="\1" height="\2">',
-    r'\[spoil=(.+?)\](.+?)\[/spoil\]': r"""
+    BbRegex.img: r'<img src="' + staticPath + r'\1">',
+    BbRegex.imgAlt: r'<img src="' + staticPath + r'\1" alt="\2">',
+    BbRegex.imgSize: r'<img src="' + staticPath + r'\3" weight="\1" height="\2">',
+    BbRegex.spoil: r"""
             <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#\1Collapsable">
+                    <a data-toggle="collapse" href="#\2Collapsable">
                         \1
                     </a>
                   </h4>
                 </div>
-                <div id="\1Collapsable" class="panel-collapse collapse in">
+                <div id="\2Collapsable" class="panel-collapse collapse in">
                   <div class="panel-body">
-                      \2
+                      \3
                   </div>
                 </div>
             </div>
         """,
-    r'\[scratchBlocks\](.+?)\[/scratchBlocks\]': r"""
+    BbRegex.scratchBlocks: r"""
             <pre class="blocks">
                 \1
             </pre>
         """,
-    r'\[scratchBlock\](.+?)\[/scratchBlock\]': r"""
-                <code class="blocksInline">\1</code>
-        """,
-    r'\[/scratchProject=(.+?)\]': r"""
+    BbRegex.scratchBlock: r'<code class="blocksInline">\1</code>',
+    BbRegex.scratchProject: r"""
                   <iframe allowtransparency="true" width="485" height="402" src="//scratch.mit.edu/projects/embed/\1/?autostart=false" frameborder="0" allowfullscreen>
                   </iframe>
 
         """,
-    r'\[b\](.+?)\[/b\]': r'<b>\1</b>',
-    r'\[i\](.+?)\[/i\]': r'<i>\1</i>',
-    r'\[u\](.+?)\[/u\]': r'<u>\1</u>',
+    BbRegex.bold: r'<b>\1</b>',
+    BbRegex.italic: r'<i>\1</i>',
+    BbRegex.underline: r'<u>\1</u>',
     # (r'\[quote\](.+?)\[/quote\]', r'<div style="margin-left: 1cm">\1</div>'),
     # (r'\[center\](.+?)\[/center\]', r'<div align="center">\1</div>'),
     # (r'\[code\](.+?)\[/code\]', r'<tt>\1</tt>'),
@@ -57,37 +69,57 @@ def word_replace(replace_dict, s):
         s = s.replace(key, val)
     return s
 
+
+def indexReplace(BbRegexData, datas):
+    ret = BbRegexData
+    for i in range(len(datas)):
+        ret = ret.replace('\\'+str(i+1), str(datas[i]))
+    return ret
+
+
+@register.filter
+def replaceBBCode(value):
+    for key, val in bbdata.items():
+        p = re.compile(key, re.DOTALL)
+        value = p.sub(val, value)
+    return value
+
+
+
+
 @register.filter
 def scratchBlocks(value):
-     return replaceBBCodeContent(value, r'\[scratchBlocks\](.+?)\[/scratchBlocks\]')
+    return indexReplace(bbdata[BbRegex.scratchBlocks], (value,))
+
 
 @register.filter
 def scratchBlock(value):
-     return replaceBBCodeContent(value, r'\[scratchBlock\](.+?)\[/scratchBlock\]')
+    return indexReplace(bbdata[BbRegex.scratchBlock], (value,))
 
 
 @register.filter
 def scratchOnlineProject(value):
-    return replaceBBCodeContent(value, r'\[/scratchProject=(.+?)\]')
+    return indexReplace(bbdata[BbRegex.scratchProject], (value,))
 
 
-def replaceBBCodeContent(value, bbdataKey):
-    originalString = bbdata[bbdataKey]
-    value = originalString.replace(r"\1", str(value))
-    return value
+@register.simple_tag
+def spoil(title, content, visible=True, idTitle=None):
+    modSpoil = bbdata[BbRegex.spoil]
+    if not visible:
+        modSpoil = modSpoil.replace(
+            'class="panel-collapse collapse in"',
+            'class="panel-collapse collapse"'
+        )
+    # Generate an id title for the spoiler automatically if not provided using the title
+    if idTitle is None:
+        idTitle = word_replace({" ": "_"}, title)
+    return indexReplace(modSpoil, (title, idTitle, content))
+
 
 @register.filter
 def onlineProjectLink(value):
     return "https://scratch.mit.edu/projects/"+str(value)+"/#editor"
 
-@register.filter
-def replaceBBCode(value):
-
-    for key, val in bbdata.items():
-        p = re.compile(key, re.DOTALL)
-        value = p.sub(val, value)
-
-    return value
 
 @register.filter
 def createScratchWikiLink(value):
@@ -97,8 +129,8 @@ def createScratchWikiLink(value):
     value = word_replace(toReplace, value)
     return preUrl+value+postUrl
 
+
 @register.filter
-# Pas réussi à faire fonctionner correctement :(
 def createBlocksTable(blocks):
     res = ""
 
@@ -126,7 +158,6 @@ def createBlocksTable(blocks):
         </td>
     </tr>
     """
-    print(blocks)
     for block in blocks:
         subDict = {
             "[blockJson]" : scratchBlock(block.blockJson),
