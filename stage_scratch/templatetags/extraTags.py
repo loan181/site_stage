@@ -84,3 +84,12 @@ def replaceBBCode(value):
         value = p.sub(val, value)
 
     return value
+
+@register.filter
+def createScratchWikiLink(value):
+    preUrl = "https://fr.scratch-wiki.info/wiki/"
+    postUrl = "_(bloc)"
+    toReplace = {(" ", "_"), ("[", "("), ("]", ")")}
+    for old, new in toReplace:
+        value = value.replace(old, new)
+    return preUrl+value+postUrl

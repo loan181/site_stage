@@ -47,6 +47,7 @@ class ScratchBlock(models.Model):
     blockDescription = models.TextField()
     relatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept nécessitant l'utilisation de ce bloc")
     additionalBlocks = models.ManyToManyField(ConceptExercise, blank=True, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
+    # scratchDocumentationLinkName = models.CharField(max_length=150, null=True, blank=True, help_text="Nom dans l'url tel que définit sur le wiki de scratch : https://fr.scratch-wiki.info/wiki/Cat%C3%A9gorie:Blocs")
 
     def __str__(self):
         return "Bloc : " +str(self.blockJson)

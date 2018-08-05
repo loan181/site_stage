@@ -12,31 +12,37 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapseBlock">
-                Blocs
-            </a>
-          </h4>
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapseBlock">
+                    Blocs
+                </a>
+            </h4>
         </div>
         <div id="collapseBlock" class="panel-collapse collapse in">
-          <div class="panel-body">
-              <table class="table table-bordered">
-                  <thead>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
                     <tr>
-                      <th scope="col">Bloc</th>
-                      <th scope="col">Description</th>
+                        <th scope="col">Bloc</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Doc</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                      {% for block in conceptBlocks %}
-                          <tr>
+                    </thead>
+                    <tbody>
+                    {% for block in conceptBlocks %}
+                        <tr>
                             <td>{{ block.blockJson |scratchBlock|safe}}</td>
                             <td>{{ block.blockDescription }}</td>
-                          </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
+                            <td>
+                                <a href="{{ block.blockJson | createScratchWikiLink }}" target="_blank">
+                                  <span class="glyphicon glyphicon-link"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -75,74 +81,74 @@
 
     <h3>Défis</h3>
     <div class="panel-group" id="accordionExercises">
-    {% for exercise in conceptExercises %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordionExercises" href="#collapseExercise{{ forloop.counter }}">
-                        Défi {{ forloop.counter }} : {{ exercise.exerciseName}}
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
-                <div class="panel-body">
-                    {{ exercise.exerciseStatement|replaceBBCode|safe|linebreaks }}
-                
-                    {# Additional blocks template if needed #}
-                    {% if exercise.scratchblock_set.all%}
-                        <div class="well">
-                            Les blocs suivants te seront utiles pour résoudre cet exercice :
-                            <div id="collapseBlock" class="panel-collapse collapse in">
-                              <div class="panel-body">
-                                  <table class="table table-bordered">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col">Bloc</th>
-                                          <th scope="col">Description</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                          {% for additionnalBlocks in exercise.scratchblock_set.all %}
-                                              <tr>
-                                                <td>{{ additionnalBlocks.blockJson|scratchBlock|safe}}</td>
-                                                <td>{{ additionnalBlocks.blockDescription }}</td>
-                                              </tr>
-                                          {% endfor %}
-                                      </tbody>
-                                  </table>
-                              </div>
-                            </div>
-                        </div>
-                    {% endif %}
+        {% for exercise in conceptExercises %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordionExercises" href="#collapseExercise{{ forloop.counter }}">
+                            Défi {{ forloop.counter }} : {{ exercise.exerciseName}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ exercise.exerciseStatement|replaceBBCode|safe|linebreaks }}
 
-                    {# Hints for the current exercice  #}
-                    <div class="panel-group" id="accordionExerciseHint{{ forloop.counter }}">
-                        {% for hint in exercise.conceptexercisehint_set.all %}
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="accordionExerciseHint{{ forloop.parentloop.counter }}" href="#collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}">
-                                            Indice {{ forloop.counter }}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}" class="panel-collapse collapse">
+                        {# Additional blocks template if needed #}
+                        {% if exercise.scratchblock_set.all%}
+                            <div class="well">
+                                Les blocs suivants te seront utiles pour résoudre cet exercice :
+                                <div id="collapseBlock" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        {{ hint.hintContent|replaceBBCode|safe|linebreaks }}
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Bloc</th>
+                                                <th scope="col">Description</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for additionnalBlocks in exercise.scratchblock_set.all %}
+                                                <tr>
+                                                    <td>{{ additionnalBlocks.blockJson|scratchBlock|safe}}</td>
+                                                    <td>{{ additionnalBlocks.blockDescription }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
+                        {% endif %}
+
+                        {# Hints for the current exercice  #}
+                        <div class="panel-group" id="accordionExerciseHint{{ forloop.counter }}">
+                            {% for hint in exercise.conceptexercisehint_set.all %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="accordionExerciseHint{{ forloop.parentloop.counter }}" href="#collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}">
+                                                Indice {{ forloop.counter }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseExercise{{ forloop.parentloop.counter }}Hint{{ forloop.counter }}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            {{ hint.hintContent|replaceBBCode|safe|linebreaks }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 
     {# Buttons to previous and next section #}
     {% if conceptLast != None %}
-            <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
+        <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
     {% endif %}
 
     {% if conceptNext != None %}
