@@ -119,7 +119,8 @@ def spoil(title, content, visible=True, idTitle=None):
         )
     # Generate an id title for the spoiler automatically if not provided using the title
     if idTitle is None:
-        idTitle = word_replace({" ": "_"}, title)
+        idTitle = title
+    idTitle = word_replace({" ": "_"}, idTitle)
     return indexReplace(modSpoil, (title, idTitle, content))
 
 
