@@ -21,29 +21,6 @@
         <div id="collapseBlock" class="panel-collapse collapse in">
             <div class="panel-body">
                 {{ conceptBlocks | createBlocksTable | safe }}
-
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">Bloc</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Doc</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for block in conceptBlocks %}
-                        <tr>
-                            <td>{{ block.blockJson |scratchBlock|safe}}</td>
-                            <td>{{ block.blockDescription }}</td>
-                            <td align="center">
-                                <a href="{{ block.blockJson | createScratchWikiLink }}" target="_blank">
-                                  <span class="glyphicon glyphicon-link"></span>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
@@ -102,29 +79,7 @@
                                 Les blocs suivants te seront utiles pour résoudre cet exercice :
                                 <div id="collapseBlock" class="panel-collapse collapse in">
                                     <div class="panel-body">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">Bloc</th>
-                                                <th scope="col">Description</th>
-                                                <th scope="col">Doc</th>
-
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for additionnalBlocks in exercise.scratchblock_set.all %}
-                                                <tr>
-                                                    <td>{{ additionnalBlocks.blockJson|scratchBlock|safe}}</td>
-                                                    <td>{{ additionnalBlocks.blockDescription }}</td>
-                                                    <td align="center">
-                                                        <a href="{{ additionnalBlocks.blockJson | createScratchWikiLink }}" target="_blank">
-                                                          <span class="glyphicon glyphicon-link"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
+                                        {{ exercise.scratchblock_set.all | createBlocksTable | safe }}
                                     </div>
                                 </div>
                             </div>
