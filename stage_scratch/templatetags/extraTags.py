@@ -64,10 +64,17 @@ bbdata = {
     # (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
 }
 
+
 @register.filter
 def addStr(arg1, arg2):
     """concatenate arg1 & arg2"""
     return str(arg1) + str(arg2)
+
+
+@register.filter
+def orderQueryBy(value, orderByStr):
+    return value.order_by(orderByStr)
+
 
 
 

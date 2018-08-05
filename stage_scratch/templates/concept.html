@@ -77,7 +77,7 @@
 
                         {# Hints for the current exercice (no need for accordions as several can be opend at once) #}
                         {% autoescape off %}
-                            {% for hint in exercise.conceptexercisehint_set.all %}
+                            {% for hint in exercise.conceptexercisehint_set.all|orderQueryBy:"hintNumber" %}
                                 {% spoil "Indice "|addStr:forloop.counter hint.hintContent|replaceBBCode|safe|linebreaks False "hint"|addStr:forloop.counter|addStr:"ex"|addStr:forloop.parentloop.counter%}
                             {% endfor %}
                         {% endautoescape %}
