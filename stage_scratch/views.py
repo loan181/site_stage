@@ -1,4 +1,8 @@
 from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse
+from django.templatetags.static import static
+from django.shortcuts import redirect
+
 
 from .models import *
 
@@ -43,3 +47,13 @@ def test(request):
         'testEmbedScratchProject' : "¨Projet Scratch : [/scratchProject=237288850] cool huh ?"
     }
     return render(request, 'test.html', context)
+
+def scratch(request):
+    context = {
+    }
+    return render(request, 'scratch.html', context)
+
+
+def locale(request, fileName):
+    staticPath = static("scratch/locale/")+fileName # Nécessaire car pas facile de changer le code de Scratch
+    return redirect(staticPath)
