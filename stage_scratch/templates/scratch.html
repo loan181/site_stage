@@ -1,23 +1,14 @@
 
 {% load static %}
-{##}
-{#<body leftmargin="0" topmargin="0" scroll="no">#}
-{#    <embed width="100%" height="100%" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">#}
-{#</body>#}
+<head>
+    <title>Scratch Editor</title>
+</head>
+<body leftmargin="0" topmargin="0" scroll="no">
+    <embed width="100%" height="100%" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">
 
-<title>Scratch Editor</title> <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script>
         function JSeditorReady() {
             return true;
         }
     </script>
-    <script type="text/javascript">
-     swfobject.embedSWF("{% static "scratch/Scratch.swf" %}", "scratch-editor", "1000", "700", "10.2.0");
-    </script>
-
-</head>
-<body>
-    <div id="scratch-editor">
-        <p>Flash is not supported.</p>
-    </div>
 </body>
