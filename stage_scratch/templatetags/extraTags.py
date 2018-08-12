@@ -24,7 +24,7 @@ bbdata = {
     # (r'\[url=(.+?)\](.+?)\[/url\]', r'<a href="\1">\2</a>'),
     # (r'\[email\](.+?)\[/email\]', r'<a href="mailto:\1">\1</a>'),
     # (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
-    BbRegex.img: r'<img src="' + staticPath + r'\1">',
+    BbRegex.img: r'<img src="' + staticPath + r'img/' + r'\1">',
     BbRegex.imgAlt: r'<img src="' + staticPath + r'img/' + r'\1" alt="\2">',
     BbRegex.imgSize: r'<img src="' + staticPath + r'img/' + r'\3" weight="\1" height="\2">',
     BbRegex.spoil: r"""
