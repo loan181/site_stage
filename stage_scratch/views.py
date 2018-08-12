@@ -21,7 +21,7 @@ def concept(request, concept_name):
     conceptExercises = conceptInfo.conceptexercise_set.all()
 
     nextConcept = Concept.objects.filter(id__gt=conceptInfo.id).order_by('id')[:1].first()
-    lastConcept = Concept.objects.filter(id__lt=conceptInfo.id).order_by('id')[:1].first()
+    lastConcept = Concept.objects.filter(id__lt=conceptInfo.id).order_by('-id')[:1].first()
     nextConceptName = None
     if nextConcept != None:
         nextConceptName = nextConcept.conceptName
@@ -48,7 +48,7 @@ def test(request):
     }
     return render(request, 'test.html', context)
 
-def scratch(request):
+def scratchOffline(request):
     context = {
     }
     return render(request, 'scratch.html', context)

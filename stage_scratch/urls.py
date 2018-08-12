@@ -10,6 +10,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('concept/<str:concept_name>', views.concept, name='concept'),
     path('test', views.test, name='test'),
-    path('scratch', views.scratch, name='scratch'),
+    path('scratch', views.scratchOffline, name='scratchOffline'),
     path('locale/<str:fileName>', views.locale),
 ]
