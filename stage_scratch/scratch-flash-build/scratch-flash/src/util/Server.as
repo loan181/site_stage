@@ -66,7 +66,10 @@ public class Server implements IServer {
 	}
 
 	// No default URLs
-	protected function setDefaultURLs():void {}
+	protected function setDefaultURLs():void {
+		URLs.siteCdnPrefix = 'http://127.0.0.1:8000';
+		URLs.staticFiles = '/static/scratch/';
+	}
 
 	public function overrideURLs(overrides:Object):void {
 		var forceProtocol:String;
@@ -263,7 +266,8 @@ public class Server implements IServer {
 //			whenDone(BackpackPart.localAssets[md5]);
 //			return null;
 //		}
-		var url:String = URLs.assetCdnPrefix + URLs.internalAPI + 'asset/' + md5 + '/get/';
+		//var url:String = URLs.assetCdnPrefix + URLs.internalAPI + 'asset/' + md5 + '/get/';
+		var url:String = getCdnStaticSiteURL() + 'media/' + md5;
 		return serverGet(url, whenDone);
 	}
 
@@ -315,7 +319,7 @@ public class Server implements IServer {
 	}
 
 	public function getThumbnail(idAndExt:String, w:int, h:int, whenDone:Function):URLLoader {
-		var url:String = getCdnStaticSiteURL() + 'medialibrarythumbnails/' + idAndExt;
+		var url:String = getCdnStaticSiteURL() + 'media/' + idAndExt;
 		return downloadThumbnail(url, w, h, whenDone);
 	}
 
