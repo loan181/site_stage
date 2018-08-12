@@ -30,16 +30,17 @@ class ScratchBlockAdmin(admin.ModelAdmin):
     search_fields = ('blockJson', 'blockDescription')
 
 
-toRegister = {
-    Concept : ConceptAdmin,
-    ConceptExample : ConceptExampleAdmin,
-    ConceptExercise : ConceptExerciseAdmin,
-    ConceptExerciseHint : ConceptExerciseHintAdmin,
-    ScratchBlock : ScratchBlockAdmin,
-}
-for toReg, toRegAdmin in toRegister.items() :
-    print(toReg, toRegAdmin)
-    admin.site.register(toReg, toRegAdmin)
+def adminRegister():
+    namespace = globals()
+    for name, model_admin in namespace.items():
+        if name.endswith("Admin"):
+            model = namespace[name[:-5]]
+            try:
+                admin.site.register(model, model_admin)
+            except :
+                print("Unexpected error in admin.py when trying to auto-generate admin database")
+                raise
 
 
+adminRegister()
 
