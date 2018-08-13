@@ -8,7 +8,7 @@
     <h1> Concepts </h1>
     <ul>
         {% for conceptName in allConceptName %}
-            <li><a href="{% url 'concept' conceptName%}">{{ conceptName }}</a></li>
+            <li><a href="{% url 'concept' conceptName%}"><h4>{{ conceptName }}</h4></a></li>
         {% endfor %}
     </ul>
 {% endblock content %}
