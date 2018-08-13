@@ -9,10 +9,13 @@ from .models import *
 
 def index(request):
     context = {
+        'allConceptName': getAllconceptsName(),
         'concepts' : Concept.objects.all()
     }
     return render(request, 'index.html', context)
 
+def getAllconceptsName():
+    return tuple(Concept.objects.values_list('conceptName', flat=True))
 
 def concept(request, concept_name):
     conceptInfo = get_object_or_404(Concept, conceptName=concept_name)
@@ -30,6 +33,7 @@ def concept(request, concept_name):
         lastConceptName = lastConcept.conceptName
 
     context = {
+        'allConceptName' : getAllconceptsName(),
         'concept' : conceptInfo,
         'conceptBlocks' : conceptBlocks,
         'conceptExamples' : conceptExamples,

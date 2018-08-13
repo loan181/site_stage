@@ -7,8 +7,8 @@
 {% block content %}
     <h1> Concepts </h1>
     <ul>
-    {% for concept in concepts %}
-        <li> <a href="{% url 'concept' concept.conceptName %}"> {{ concept.conceptName }} </a></li>
-    {% endfor %}
+        {% for conceptName in allConceptName %}
+            <li><a href="{% url 'concept' conceptName%}">{{ conceptName }}</a></li>
+        {% endfor %}
     </ul>
 {% endblock content %}

@@ -4,7 +4,6 @@
 
 {% load static %}
 {% load extraTags %}
-{% load  %}
 
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
@@ -89,13 +88,23 @@
     </div>
 
     {# Buttons to previous and next section #}
-    {% if conceptLast != None %}
-        <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
-    {% endif %}
+    <nav aria-label="NextPreviousConcept">
+        <ul class="pager">
+            {% if conceptLast != None %}
+                <li>
+                    <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
+                </li>
+            {% endif %}
 
-    {% if conceptNext != None %}
-        <a href="{% url 'concept' conceptNext %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ conceptNext }} &raquo;</a>
-    {% endif %}
+            {% if conceptNext != None %}
+                <li>
+                    <a href="{% url 'concept' conceptNext %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ conceptNext }} &raquo;</a>
+                </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+
 
 
 {% endblock content %}
