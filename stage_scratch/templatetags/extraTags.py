@@ -174,12 +174,13 @@ def createBlocksTable(blocks):
     </tr>\
     '
     for block in blocks:
-        # TODO : escape blockJson break lines (because of if <> else )
+        # TODO : issues in domr blocksJson using line breaks (use blocks istead of inline notation ?)
         subDict = {
             "[blockJson]" : scratchBlock(block.blockJson),
             "[blockDesc]" : block.blockDescription,
             "[blockWikiLink]" : createScratchWikiLink(block.blockJson)
         }
+
         res += word_replace(subDict, content)
 
     post = '\
@@ -187,5 +188,7 @@ def createBlocksTable(blocks):
     </table>\
     '
     res += post
+
+    print(res)
     return res
 

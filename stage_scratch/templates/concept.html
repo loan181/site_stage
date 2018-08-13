@@ -10,9 +10,8 @@
 
     <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
 
-    {# TODO : linebreaks pour la description des blocs #}
     {% autoescape off %}
-        {% spoil "Blocs" conceptBlocks|createBlocksTable|linebreaksbr %}
+        {% spoil "Blocs" conceptBlocks|createBlocksTable|linebreaks %}
     {% endautoescape %}
 
     {{ concept.conceptPostBlocksDescription|replaceBBCode|safe }}
