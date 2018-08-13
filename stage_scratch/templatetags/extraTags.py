@@ -149,30 +149,30 @@ def createScratchWikiLink(value):
 def createBlocksTable(blocks):
     res = ""
 
-    pre = """
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th scope="col">Bloc</th>
-            <th scope="col">Description</th>
-            <th scope="col">Doc</th>
-        </tr>
-        </thead>
-        <tbody>
-    """
+    pre = '\
+    <table class="table table-bordered">\
+        <thead>\
+        <tr>\
+            <th scope="col">Bloc</th>\
+            <th scope="col">Description</th>\
+            <th scope="col">Doc</th>\
+        </tr>\
+        </thead>\
+        <tbody>\
+     '
     res += pre
 
-    content = r"""
-    <tr>
-        <td>[blockJson]</td>
-        <td>[blockDesc]</td>
-        <td align="center">
-            <a href="[blockWikiLink]" target="_blank">
-              <span class="glyphicon glyphicon-link"></span>
-            </a>
-        </td>
-    </tr>
-    """
+    content = '\
+    <tr>\
+        <td>[blockJson]</td>\
+        <td>[blockDesc]</td>\
+        <td align="center">\
+            <a href="[blockWikiLink]" target="_blank">\
+              <span class="glyphicon glyphicon-link"></span>\
+            </a>\
+        </td>\
+    </tr>\
+    '
     for block in blocks:
         # TODO : escape blockJson break lines (because of if <> else )
         subDict = {
@@ -182,11 +182,10 @@ def createBlocksTable(blocks):
         }
         res += word_replace(subDict, content)
 
-    post = """
-        </tbody>
-    </table>
-    """
+    post = '\
+        </tbody>\
+    </table>\
+    '
     res += post
-
     return res
 

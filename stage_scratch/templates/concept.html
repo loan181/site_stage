@@ -12,7 +12,7 @@
 
     {# TODO : linebreaks pour la description des blocs #}
     {% autoescape off %}
-        {% spoil "Blocs" conceptBlocks|createBlocksTable %}
+        {% spoil "Blocs" conceptBlocks|createBlocksTable|linebreaksbr %}
     {% endautoescape %}
 
     {{ concept.conceptPostBlocksDescription|replaceBBCode|safe }}
