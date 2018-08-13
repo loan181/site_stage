@@ -188,7 +188,5 @@ def createBlocksTable(blocks):
     </table>\
     '
     res += post
-
-    print(res)
     return res
 
