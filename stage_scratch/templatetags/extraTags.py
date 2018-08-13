@@ -174,7 +174,7 @@ def createBlocksTable(blocks):
     </tr>
     """
     for block in blocks:
-        # TODO : escape blockJson break lines (because of if <> else blocks)
+        # TODO : escape blockJson break lines (because of if <> else )
         subDict = {
             "[blockJson]" : scratchBlock(block.blockJson),
             "[blockDesc]" : block.blockDescription,
