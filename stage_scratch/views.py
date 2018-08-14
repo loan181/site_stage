@@ -69,7 +69,7 @@ def locale(request, fileName):
 def test(request):
     context = {
         'testStringPicture' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static",
-        'testStringSpoiler' : "Spoiler : [spoil=titre] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] dingue",
+        'testStringSpoiler' : "Spoiler : [spoil title=titre id=eza] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] dingue",
         'testEmbedScratchProject' : "¨Projet Scratch : [/scratchProject=237288850] cool huh ?"
     }
     return render(request, 'test.html', context)

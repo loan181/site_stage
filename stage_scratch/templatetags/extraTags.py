@@ -28,16 +28,16 @@ bbdata = {
     BbRegex.imgAlt: r'<img src="' + staticPath + r'img/' + r'\1" alt="\2">',
     BbRegex.imgSize: r'<img src="' + staticPath + r'img/' + r'\3" weight="\1" height="\2">',
     BbRegex.spoil: r"""
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#\2Collapsable">
+            <div class="card">
+                <div class="card-header" data-toggle="collapse" data-target="#\2Collapsable">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button">
                         \1
-                    </a>
-                  </h4>
+                    </button>
+                  </h5>
                 </div>
-                <div id="\2Collapsable" class="panel-collapse collapse in">
-                  <div class="panel-body">
+                <div id="\2Collapsable" class="collapse">
+                  <div class="card-body">
                       \3
                   </div>
                 </div>

@@ -9,7 +9,7 @@
     <h1> Tests </h1>
 
     <h2> Mettre une image : </h2>
-    <img src="{% static "Image1.png" %}" alt="img">
+    <img src="{% static "img/Image1.png" %}" alt="img">
 
     <h2> Insérer des blocs personnalisés Scratch : </h2>
     <pre class="blocks">
@@ -36,16 +36,16 @@
 
     {{ testStringSpoiler|replaceBBCode|safe }}
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapseBlock">
+    <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#collapseTestM">
+          <h5 class="mb-0">
+            <button class="btn btn-link">
                 Nom
-            </a>
-          </h4>
+            </button>
+          </h5>
         </div>
-        <div id="collapseBlock" class="panel-collapse collapse in">
-          <div class="panel-body">
+        <div id="collapseTestM" class="collapse">
+          <div class="card-body">
               Texte secret
           </div>
         </div>

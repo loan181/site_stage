@@ -17,18 +17,18 @@
     {{ concept.conceptPostBlocksDescription|replaceBBCode|safe }}
 
     <h3> Exemples </h3>
-    <div class="panel-group" id="accordionExamples">
+    <div class="accordion" id="accordionExamples">
         {% for example in conceptExamples %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordionExamples" href="#collapseExample{{ forloop.counter }}">
+            <div class="card">
+                <div class="card-header" data-toggle="collapse" data-target="#collapseExample{{ forloop.counter }}">
+                    <h6 class="mb-0">
+                        <button class="btn btn-link" type="button">
                             Exemple {{ forloop.counter }} : {{ example.exampleName}}
-                        </a>
-                    </h4>
+                        </button >
+                    </h6>
                 </div>
-                <div id="collapseExample{{ forloop.counter }}" class="panel-collapse collapse">
-                    <div class="panel-body">
+                <div id="collapseExample{{ forloop.counter }}" class="collapse" data-parent="#accordionExamples">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
                                 {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
@@ -39,7 +39,6 @@
 {#                                <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>#}
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -48,18 +47,18 @@
 
 
     <h3>Défis</h3>
-    <div class="panel-group" id="accordionExercises">
+    <div class="accordion" id="accordionExercises">
         {% for exercise in conceptExercises %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordionExercises" href="#collapseExercise{{ forloop.counter }}">
+            <div class="card">
+                <div class="card-header" data-toggle="collapse" data-target="#collapseExercise{{ forloop.counter }}">
+                    <h6 class="mb-0">
+                        <button class="btn btn-link" type="button">
                             Défi {{ forloop.counter }} : {{ exercise.exerciseName}}
-                        </a>
-                    </h4>
+                        </button>
+                    </h6>
                 </div>
-                <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse">
-                    <div class="panel-body">
+                <div id="collapseExercise{{ forloop.counter }}" class="panel-collapse collapse" data-parent="#accordionExercises">
+                    <div class="card-body">
                         {{ exercise.exerciseStatement|replaceBBCode|safe|linebreaks }}
 
                         {# Additional blocks template if needed #}
