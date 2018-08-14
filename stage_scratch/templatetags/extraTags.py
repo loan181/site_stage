@@ -168,7 +168,7 @@ def createBlocksTable(blocks):
         <td>[blockDesc]</td>\
         <td align="center">\
             <a href="[blockWikiLink]" target="_blank">\
-              <span class="glyphicon glyphicon-link"></span>\
+              [LIEN]🔗\
             </a>\
         </td>\
     </tr>\

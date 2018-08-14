@@ -8,6 +8,8 @@
 {% block content %}
     <h1> {{ concept.conceptName }} </h1>
 
+    <pre class="blocks"></pre> <!-- Je sais pas pourquoi, mais les blocs ne se montre pas bien sans ça -->
+
     <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
 
     {% autoescape off %}
