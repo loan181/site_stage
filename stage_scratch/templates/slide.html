@@ -3,22 +3,21 @@
 
 {% block content %}
     <h1> Slides de présentation </h1>
-    <p>Bla bla</p>
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuSlide" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Dropdown
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuSlide">
-            {% for slide in allSlides %}
-                <li id="slideChoice{{ forloop.counter }}" data-driveUrl="{{ slide.slideLink }}"> {{ slide.slideTitle }} </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <p>Ceci sont les slides que je présente lors des cours que je donne</p>
+    <p>Les corrections des exercices sont indiqués dessus, attention que parfois plusieurs réponses sont correctes ;)</p>
+    <p>Les animations ne s'affiche pas toujours très bien</p>
+
+    <nav class="table-responsive mb-2">
+      <ul class="pagination justify-content-center" >
+          {% for slide in allSlides %}
+              <li id="slideChoice{{ forloop.counter }}" data-driveUrl="{{ slide.slideLink }}" class="page-item"><a class="page-link" href="#">{{ slide.slideTitle }}</a> </li>
+          {% endfor %}
+      </ul>
+    </nav>
 
 
-    <div>
-        <iframe id="slideFrame" width="640" height="480" frameborder="0" scrolling="no"></iframe>
+    <div class="embed-responsive embed-responsive-4by3">
+        <iframe id="slideFrame" frameborder="0" scrolling="no"></iframe>
     </div>
 
     {% with driveUrl="https://onedrive.live.com/embed?" %}

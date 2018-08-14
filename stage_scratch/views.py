@@ -51,7 +51,6 @@ def slide(request):
         'allConceptName': getAllconceptsName(),
         'allSlides':Slide.objects.all()
     }
-    print(context)
     return render(request, 'slide.html', context)
 
 

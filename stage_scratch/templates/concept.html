@@ -89,16 +89,16 @@
 
     {# Buttons to previous and next section #}
     <nav aria-label="NextPreviousConcept">
-        <ul class="pager">
+        <ul class="pagination justify-content-center">
             {% if conceptLast != None %}
-                <li>
-                    <a href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'concept' conceptLast %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&laquo; {{ conceptLast }}</a>
                 </li>
             {% endif %}
 
             {% if conceptNext != None %}
-                <li>
-                    <a href="{% url 'concept' conceptNext %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ conceptNext }} &raquo;</a>
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'concept' conceptNext %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{ conceptNext }} &raquo;</a>
                 </li>
             {% endif %}
         </ul>
