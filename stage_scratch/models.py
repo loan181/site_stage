@@ -52,3 +52,9 @@ class ScratchBlock(models.Model):
 
     def __str__(self):
         return "Bloc : " +str(self.blockJson)
+
+class Slides(models.Model):
+    slideTitle = models.CharField(max_length=50, help_text="Titre des slides")
+    slideLink = models.CharField(max_length=150, help_text="partie distincte de l'URL menant vers les slides en ligne")
+    slideNumber = models.IntegerField(help_text="Numéro de la slide (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
+    slideRelatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept pour le quel les slides s'applique")
