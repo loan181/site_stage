@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Slides{% endblock title %}
+
+{% block content %}
+    <h1> Slides de présentation </h1>
+    <p>Bla bla</p>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuSlide" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Dropdown
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuSlide">
+            {% for slide in allSlides %}
+                <li id="slideChoice{{ forloop.counter }}" data-driveUrl="{{ slide.slideLink }}"> {{ slide.slideTitle }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div>
+        <iframe id="slideFrame" width="640" height="480" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    {% with driveUrl="https://onedrive.live.com/embed?" %}
+        <script>
+            var li = document.getElementsByTagName("li");
+            var slideFrame = document.getElementById('slideFrame');
+
+            for(var i = 0;i<li.length;i++){
+                li[i].addEventListener("click", function(){
+                    var driveUrl = this.getAttribute("data-driveUrl");
+                    slideFrame.src = "{{ driveUrl }}" + driveUrl;
+                });
+            }
+        </script>
+    {% endwith %}
+
+{% endblock content %}

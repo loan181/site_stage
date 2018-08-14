@@ -14,8 +14,10 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
+
 def getAllconceptsName():
     return tuple(Concept.objects.values_list('conceptName', flat=True))
+
 
 def concept(request, concept_name):
     conceptInfo = get_object_or_404(Concept, conceptName=concept_name)
@@ -44,13 +46,14 @@ def concept(request, concept_name):
     return render(request, 'concept.html', context)
 
 
-def test(request):
+def slide(request):
     context = {
-        'testStringPicture' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static",
-        'testStringSpoiler' : "Spoiler : [spoil=titre] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] dingue",
-        'testEmbedScratchProject' : "¨Projet Scratch : [/scratchProject=237288850] cool huh ?"
+        'allConceptName': getAllconceptsName(),
+        'allSlides':Slide.objects.all()
     }
-    return render(request, 'test.html', context)
+    print(context)
+    return render(request, 'slide.html', context)
+
 
 def scratchOffline(request):
     context = {
@@ -61,3 +64,12 @@ def scratchOffline(request):
 def locale(request, fileName):
     staticPath = static("scratch/locale/")+fileName # Nécessaire car pas facile de changer le code de Scratch
     return redirect(staticPath)
+
+
+def test(request):
+    context = {
+        'testStringPicture' : "Salut j'ai une imace juste ici  [img]blocs_orientations.PNG[/img] qui est dans static",
+        'testStringSpoiler' : "Spoiler : [spoil=titre] Secret secret [img]blocs_orientations.PNG[/img] [/spoil] dingue",
+        'testEmbedScratchProject' : "¨Projet Scratch : [/scratchProject=237288850] cool huh ?"
+    }
+    return render(request, 'test.html', context)

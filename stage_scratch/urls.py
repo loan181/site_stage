@@ -11,5 +11,6 @@ urlpatterns = [
     path('concept/<str:concept_name>', views.concept, name='concept'),
     path('test', views.test, name='test'),
     path('scratch', views.scratchOffline, name='scratchOffline'),
+    path('slide', views.slide, name='slide'),
     path('locale/<str:fileName>', views.locale),
 ]
