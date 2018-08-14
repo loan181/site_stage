@@ -29,7 +29,8 @@ class ScratchBlockAdmin(admin.ModelAdmin):
     list_filter = ('additionalBlocks',)
     search_fields = ('blockJson', 'blockDescription')
 
-class Slide(admin.ModelAdmin):
+
+class SlideAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slideTitle', 'slideNumber', 'slideRelatedConcept')
     search_fields = ('slideTitle', )
 

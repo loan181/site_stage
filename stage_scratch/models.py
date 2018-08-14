@@ -60,4 +60,4 @@ class Slide(models.Model):
     slideRelatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept pour le quel les slides s'applique")
 
     def __str__(self):
-        return "Slide "+ self.slideTitle
+        return "Slide " + self.slideTitle
