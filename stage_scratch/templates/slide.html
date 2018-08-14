@@ -1,26 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}Slides{% endblock title %}
 
+
 {% block content %}
-    <h1> Slides de présentation </h1>
-    <p>Ceci sont les slides que je présente lors des cours que je donne</p>
-    <p>Les corrections des exercices sont indiqués dessus, attention que parfois plusieurs réponses sont correctes ;)</p>
-    <p>Les animations ne s'affiche pas toujours très bien</p>
-
-    <nav class="table-responsive mb-2">
-      <ul class="pagination justify-content-center" >
-          {% for slide in allSlides %}
-              <li id="slideChoice{{ forloop.counter }}" data-driveUrl="{{ slide.slideLink }}" class="page-item"><a class="page-link" href="#">{{ slide.slideTitle }}</a> </li>
-          {% endfor %}
-      </ul>
-    </nav>
-
-
-    <div class="embed-responsive embed-responsive-4by3">
-        <iframe id="slideFrame" frameborder="0" scrolling="no"></iframe>
-    </div>
-
     {% with driveUrl="https://onedrive.live.com/embed?" %}
+        <h1> Slides de présentation </h1>
+        <p>Ceci sont les slides que je présente lors des cours que je donne<br>
+            Attention que les animations ne s'affiche pas toujours très bien</p>
+
+
+        <h3>Concepts</h3>
+        <p>Les corrections des exercices sont indiqués dessus, attention que parfois plusieurs réponses sont correctes ;)</p>
+
+        <nav class="table-responsive mb-2">
+            <ul class="pagination justify-content-center" >
+                {% for slide in allSlides %}
+                    <li id="slideChoice{{ forloop.counter }}" data-driveUrl="{{ slide.slideLink }}" class="page-item"><a class="page-link" href="#">{{ slide.slideTitle }}</a> </li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe id="slideFrame" frameborder="0" scrolling="no"></iframe>
+        </div>
+
         <script>
             var li = document.getElementsByTagName("li");
             var slideFrame = document.getElementById('slideFrame');

@@ -61,3 +61,9 @@ class Slide(models.Model):
 
     def __str__(self):
         return "Slide " + self.slideTitle
+
+class Project(models.Model):
+    projectTitle = models.CharField(max_length=50, help_text="Titre/Nom du projet")
+    projectThumbnail = models.ImageField(help_text="Aperçu du projet")
+    projectOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo du projet")
+    projectGameGoal = models.TextField(help_text="Définir l'ensemble des règles du jeu")
