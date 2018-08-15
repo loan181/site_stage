@@ -10,7 +10,8 @@ from .models import *
 def index(request):
     context = {
         'allConceptName': getAllconceptsName(),
-        'concepts' : Concept.objects.all()
+        'concepts' : Concept.objects.all(),
+        'projects' : Project.objects.all(),
     }
     return render(request, 'index.html', context)
 
@@ -45,6 +46,15 @@ def concept(request, concept_name):
     }
     return render(request, 'concept.html', context)
 
+def project(request, project_name):
+    project = get_object_or_404(Project, projectTitle=project_name)
+    projectSprites = project.projectsprite_set.all()
+    context = {
+        'allConceptName': getAllconceptsName(),
+        'project': project,
+        'projectSprites': projectSprites,
+    }
+    return render(request, 'project.html', context)
 
 def slide(request):
     context = {

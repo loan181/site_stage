@@ -34,6 +34,24 @@ class SlideAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'slideTitle', 'slideNumber', 'slideRelatedConcept')
     search_fields = ('slideTitle', )
 
+
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'projectTitle', 'projectSummary')
+
+
+class ProjectSpriteAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'projectSpriteName', 'projectSpriteRelatedProject')
+    list_filter = ('projectSpriteRelatedProject',)
+
+
+class ProjectSpriteObjectiveAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'projectSpriteObjectiveTitle', 'projectSpriteObjectiveNumber', 'projectSpriteObjectiveRelatedProjectSprite', 'projectSpriteObjectiveExplanation')
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('__str__',)
+
+
 def adminRegister():
     namespace = globals()
     for name, model_admin in namespace.items():

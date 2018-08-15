@@ -10,8 +10,22 @@
             <li><a href="{% url 'concept' conceptName%}"><h4>{{ conceptName }}</h4></a></li>
         {% endfor %}
     </ul>
-    Les slides de tout les concepts sont disponibles sur : <a href="{% url "slide" %}">LIEN</a>
+    Les slides de tous les concepts sont disponibles sur : <a href="{% url "slide" %}">LIEN</a>
 
     <h1> Idées de jeux </h1>
-        <p class="text-muted">Rien pour le moment :)</p>
+    <div class="card-deck">
+        {% for project in projects %}
+            <a href="{% url 'project' project.projectTitle %}">
+                <div class="card">
+                    {% with "img/projectsPreview/"|add:project.projectThumbnail as imgUrl %}
+                        <img class="card-img-top" src="{% static imgUrl %}" alt="{{ project.projectTitle }}">
+                    {% endwith %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.projectTitle }}</h5>
+                        <p class="card-text">{{ project.projectSummary }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock content %}

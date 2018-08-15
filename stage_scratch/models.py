@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class Category(models.Model):
+    categoryName = models.CharField(max_length=50, help_text="Texte/titre de la catégorie")
+
+    def __str__(self):
+        return "Categorie " + self.categoryName
+
+
 class Concept(models.Model):
     conceptName = models.CharField(max_length=100, help_text="Titre du concept")
     conceptNumber = models.IntegerField(unique=True, blank=True, null=True, help_text="Numéro du concept (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
@@ -47,6 +54,7 @@ class Slide(models.Model):
     slideLink = models.CharField(max_length=150, help_text="partie distincte de l'URL menant vers les slides en ligne")
     slideNumber = models.IntegerField(help_text="Numéro de la slide (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
     slideRelatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept pour le quel les slides s'applique")
+    slideCategory = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, help_text="Catégorie de la slide")
 
     def __str__(self):
         return "Slide " + self.slideTitle
@@ -54,23 +62,31 @@ class Slide(models.Model):
 
 class Project(models.Model):
     projectTitle = models.CharField(max_length=50, help_text="Titre/Nom du projet")
-    projectThumbnail = models.ImageField(help_text="Aperçu du projet")
+    projectThumbnail = models.CharField(max_length=50, help_text="Nom de l'aperçu du projet dans static/img/projectsPreview")
     projectSummary = models.TextField(help_text="Court texte de description du project")
     projectOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo du projet")
     projectGameGoal = models.TextField(help_text="Définir l'ensemble des règles du jeu")
+
+    def __str__(self):
+        return "Project " + self.projectTitle
 
 
 class ProjectSprite(models.Model):
     projectSpriteName = models.CharField(max_length=50, help_text="Nom du lutin")
     projectSpriteRelatedProject = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL, help_text="Projet auquel ce lutin est lié")
-    projectSpriteObjectives = models.TextField(help_text="Objectif(s) que doit accomplir le sprite dans le projet")
+
+    def __str__(self):
+        return "Sprite " + self.projectSpriteName + " (" + str(self.projectSpriteRelatedProject) + ")"
 
 
 class ProjectSpriteObjective(models.Model):
     projectSpriteObjectiveTitle = models.CharField(max_length=50, help_text="Titre/Nom de l'objectif")
-    projectSpriteObjectiveRelatedProjectSprite = models.ForeignKey(ProjectSprite, null=True, on_delete=models.SET_NULL, help_text="Sprite du projet auquel cet objectif de lutin est lié")
     projectSpriteObjectiveNumber = models.IntegerField(help_text="Numéro de l'objectif (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
+    projectSpriteObjectiveRelatedProjectSprite = models.ForeignKey(ProjectSprite, null=True, on_delete=models.SET_NULL, help_text="Sprite du projet auquel cet objectif de lutin est lié")
     projectSpriteObjectiveExplanation = models.TextField(help_text="Détail sur l'objectif")
+
+    def __str__(self):
+        return "Sprite Objective " + self.projectSpriteObjectiveTitle + "("+str(self.projectSpriteObjectiveRelatedProjectSprite)+")"
 
 
 class ScratchBlock(models.Model):
