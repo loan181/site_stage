@@ -42,17 +42,6 @@ class ConceptExerciseHint(models.Model):
         return "indice " + str(self.hintNumber) + " de " + str(self.hintExercise)
 
 
-class ScratchBlock(models.Model):
-    blockJson = models.TextField(max_length=200, help_text="Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json")
-    blockDescription = models.TextField(help_text="Description du bloc")
-    relatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept nécessitant l'utilisation de ce bloc")
-    additionalBlocks = models.ManyToManyField(ConceptExercise, blank=True, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
-    # scratchDocumentationLinkName = models.CharField(max_length=150, null=True, blank=True, help_text="Nom dans l'url tel que définit sur le wiki de scratch : https://fr.scratch-wiki.info/wiki/Cat%C3%A9gorie:Blocs")
-    # déterminable en utilisant le Json du bloc
-
-    def __str__(self):
-        return "Bloc : " +str(self.blockJson)
-
 class Slide(models.Model):
     slideTitle = models.CharField(max_length=50, help_text="Titre des slides")
     slideLink = models.CharField(max_length=150, help_text="partie distincte de l'URL menant vers les slides en ligne")
@@ -62,8 +51,36 @@ class Slide(models.Model):
     def __str__(self):
         return "Slide " + self.slideTitle
 
+
 class Project(models.Model):
     projectTitle = models.CharField(max_length=50, help_text="Titre/Nom du projet")
     projectThumbnail = models.ImageField(help_text="Aperçu du projet")
+    projectSummary = models.TextField(help_text="Court texte de description du project")
     projectOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo du projet")
     projectGameGoal = models.TextField(help_text="Définir l'ensemble des règles du jeu")
+
+
+class ProjectSprite(models.Model):
+    projectSpriteName = models.CharField(max_length=50, help_text="Nom du lutin")
+    projectSpriteRelatedProject = models.ForeignKey(Project, null=True, on_delete=models.SET_NULL, help_text="Projet auquel ce lutin est lié")
+    projectSpriteObjectives = models.TextField(help_text="Objectif(s) que doit accomplir le sprite dans le projet")
+
+
+class ProjectSpriteObjective(models.Model):
+    projectSpriteObjectiveTitle = models.CharField(max_length=50, help_text="Titre/Nom de l'objectif")
+    projectSpriteObjectiveRelatedProjectSprite = models.ForeignKey(ProjectSprite, null=True, on_delete=models.SET_NULL, help_text="Sprite du projet auquel cet objectif de lutin est lié")
+    projectSpriteObjectiveNumber = models.IntegerField(help_text="Numéro de l'objectif (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
+    projectSpriteObjectiveExplanation = models.TextField(help_text="Détail sur l'objectif")
+
+
+class ScratchBlock(models.Model):
+    blockJson = models.TextField(max_length=200, help_text="Voir : https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json")
+    blockDescription = models.TextField(help_text="Description du bloc")
+    relatedConcept = models.ForeignKey(Concept, null=True, blank=True, on_delete=models.SET_NULL, help_text="Concept nécessitant l'utilisation de ce bloc")
+    additionalBlocks = models.ManyToManyField(ConceptExercise, blank=True, help_text="Blocs additionnels d'un exercice n'ayant pas encore vu au stade du chapitre courant")
+    helpBlocks = models.ManyToManyField(ProjectSpriteObjective, blank=True, help_text="Blocs pour aider à guider lors de la réalisation d'un projet")
+    # scratchDocumentationLinkName = models.CharField(max_length=150, null=True, blank=True, help_text="Nom dans l'url tel que définit sur le wiki de scratch : https://fr.scratch-wiki.info/wiki/Cat%C3%A9gorie:Blocs")
+    # déterminable en utilisant le Json du bloc
+
+    def __str__(self):
+        return "Bloc : " +str(self.blockJson)
