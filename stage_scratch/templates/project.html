@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Project{% endblock title %}
+
+{% load static %}
+{% load extraTags %}
+
+{% block content %}
+    <h1> {{ project.projectTitle }} </h1>
+    <p class="text-muted">{{ project.projectSummary }}</p>
+
+    <h2 id="resume">Résumé</h2>
+    <p>{{ project.projectGameGoal|linebreaks }}</p>
+
+    <h2>Démo</h2>
+    {{ project.projectOnlineProjectId|scratchOnlineProject|safe }}
+
+    <h2>Réalisation</h2>
+
+    <h4>Identification des objectifs du jeu</h4>
+    <p>On va se poser la question de <b>qu'est ce qu'on veut ?</b></p>
+    <p>( déjà répondu dans le <a href="#resume">résumé</a> )</p>
+
+    <h4>Identification des lutins</h4>
+    <p>On va se poser la question <b>de quoi avons nous besoin et que doit-il faire?</b></p>
+    Dans notre cas j'ai choisi d'en utiliser {{ projectSprites|length }} :
+    <ul>
+        {% for projectSprite in projectSprites %}
+            <li>{{ projectSprite.projectSpriteName }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Programmation des lutins </h4>
+    {% for projectSprite in projectSprites %}
+        <h5>{{ projectSprite.projectSpriteName }}</h5>
+        {% for projectSpriteObjective in projectSprite.projectspriteobjective_set.all %}
+            <h6> {{ projectSpriteObjective.projectSpriteObjectiveTitle }} </h6>
+            <p> {{ projectSpriteObjective.projectSpriteObjectiveExplanation|linebreaks }} </p>
+        {% endfor %}
+    {% endfor %}
+
+
+{% endblock content %}
