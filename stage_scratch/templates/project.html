@@ -5,6 +5,7 @@
 {% load extraTags %}
 
 {% block content %}
+    {# TODO : ajouter les concepts nécessaires à la réalisation du projet (coordonnées, orientation, etc.) #}
     <h1> {{ project.projectTitle }} </h1>
     <p class="text-muted">{{ project.projectSummary }}</p>
 
@@ -38,5 +39,6 @@
         {% endfor %}
     {% endfor %}
 
+    {# TODO : ajouter une section sur les suggestions d'amélioration du jeu (niveau en plus, etc.) avec les concepts nécessitant l'ajout (varaibles, messages, ...) #}
 
 {% endblock content %}

@@ -119,6 +119,7 @@ def scratchOnlineProject(value):
 @register.simple_tag
 def spoil(title, content, visible=True, idTitle=None):
     modSpoil = bbdata[BbRegex.spoil]
+    # TODO correct here for fit for bootstrap 4.1.x
     if not visible:
         modSpoil = modSpoil.replace(
             'class="panel-collapse collapse in"',

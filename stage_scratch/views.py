@@ -59,7 +59,7 @@ def project(request, project_name):
 def slide(request):
     context = {
         'allConceptName': getAllconceptsName(),
-        'allSlides':Slide.objects.all()
+        'allSlides': Slide.objects.all(),
     }
     return render(request, 'slide.html', context)
 
