@@ -31,7 +31,7 @@ class ScratchBlockAdmin(admin.ModelAdmin):
 
 
 class SlideAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'slideTitle', 'slideNumber', 'slideRelatedConcept')
+    list_display = ('__str__', 'slideTitle', 'slideNumber', 'slideRelatedConcept', 'slideCategory')
     search_fields = ('slideTitle', )
 
 
@@ -45,7 +45,7 @@ class ProjectSpriteAdmin(admin.ModelAdmin):
 
 
 class ProjectSpriteObjectiveAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'projectSpriteObjectiveTitle', 'projectSpriteObjectiveNumber', 'projectSpriteObjectiveRelatedProjectSprite', 'projectSpriteObjectiveExplanation')
+    list_display = ('__str__', 'projectSpriteObjectiveTitle', 'projectSpriteObjectiveNumber', 'projectSpriteObjectiveRelatedProjectSprite', 'projectSpriteObjectiveExplanation',)
 
 
 class CategoryAdmin(admin.ModelAdmin):

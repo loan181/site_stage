@@ -57,10 +57,14 @@ def project(request, project_name):
     return render(request, 'project.html', context)
 
 def slide(request):
+    slides = Slide.objects.all() # TODO : mettre dans l'ordre croissant des numéros
+    slideCategories = slides.select_related('slideCategory').values('slideCategory__categoryName').distinct()
     context = {
         'allConceptName': getAllconceptsName(),
-        'allSlides': Slide.objects.all(),
+        'allSlides': slides,
+        'slideCategories': slideCategories,
     }
+
     return render(request, 'slide.html', context)
 
 
