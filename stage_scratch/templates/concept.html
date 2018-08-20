@@ -74,11 +74,13 @@
 
                         {# Additional blocks template if needed #}
                         {% if exercise.scratchblock_set.all%}
-                            <div class="well">
-                                Les blocs suivants te seront utiles pour résoudre cet exercice :
-                                <div id="collapseBlock" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-                                        {{ exercise.scratchblock_set.all | createBlocksTable | safe }}
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-text">Les blocs suivants te seront utiles pour résoudre cet exercice :</p>
+                                    <div id="collapseBlock" class="card">
+                                        <div class="card-body">
+                                            {{ exercise.scratchblock_set.all | createBlocksTable | safe }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
