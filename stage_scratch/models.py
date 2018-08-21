@@ -35,7 +35,9 @@ class ConceptExercise(models.Model):
     exerciseConcept = models.ForeignKey(Concept, null=True, on_delete=models.SET_NULL, help_text="Concept auquel est lié cet exercice")
     exerciseNumber = models.IntegerField(help_text="Numéro de l'exercice (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
     exerciseStatement = models.TextField(help_text="enoncé de l'exercice")
-    exerciceBest = models.BooleanField(default=False, help_text="Meilleur exercice")
+    exerciseBest = models.BooleanField(default=False, help_text="Meilleur exercice")
+    exerciseOnlineProjectId = models.IntegerField(null=True, blank=True, help_text="ID utilisé sur le site de scratch pour une démo de l'exercice (facultatif)")
+
 
     def __str__(self):
         return "Ex "+str(self.exerciseNumber)+ ' (' + str(self.exerciseConcept) + ')'+" : "+self.exerciseName

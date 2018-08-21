@@ -14,7 +14,7 @@ class ConceptExampleAdmin(admin.ModelAdmin):
 
 
 class ConceptExerciseAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'exerciseName', 'exerciseConcept', 'exerciseNumber', 'exerciseStatement', 'exerciceBest')
+    list_display = ('__str__', 'exerciseName', 'exerciseConcept', 'exerciseNumber', 'exerciseStatement', 'exerciseBest')
     search_fields = ('exerciseName', 'exerciseStatement')
 
 

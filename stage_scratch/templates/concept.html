@@ -38,7 +38,7 @@
                             <div class="col-sm-6">
                                 {{ example.exampleBlocks|scratchBlocks|safe }}
                                 {{ example.exampleText|replaceBBCode|safe|linebreaks }}
-{#                                <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>#}
+                                {#                                <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>#}
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             </h6>
                         </div>
                         <div class="col-md-6">
-                            {% if exercise.exerciceBest %}
+                            {% if exercise.exerciseBest %}
                                 <div class="text-right text-warning"><h4>★</h4></div>
                             {% endif %}
                         </div>
@@ -85,6 +85,13 @@
                                 </div>
                             </div>
                         {% endif %}
+
+                        {# Demo preview if given #}
+                        {% if exercise.exerciseOnlineProjectId %}
+                            {% autoescape off %}
+                                {% spoil "Démo" exercise.exerciseOnlineProjectId|scratchOnlineProject|safe %}
+                            {% endautoescape %}
+                        {% endif  %}
 
                         {# Hints for the current exercice (no need for accordions as several can be opend at once) #}
                         {% autoescape off %}
