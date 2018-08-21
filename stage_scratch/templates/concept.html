@@ -62,9 +62,14 @@
                             </h6>
                         </div>
                         <div class="col-md-6">
-                            {% if exercise.exerciseBest %}
-                                <div class="text-right text-warning"><h4>★</h4></div>
+                            <div class="text-right"> <h4>
+                            {% if exercise.exerciseOnlineProjectId %}
+                                <p class="text-success" style="display:inline">⚑</p>
                             {% endif %}
+                            {% if exercise.exerciseBest %}
+                                <p class="text-warning" style="display:inline">★</p>
+                            {% endif %}
+                        </h4></div>
                         </div>
                     </div>
                 </div>
