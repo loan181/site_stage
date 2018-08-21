@@ -50,9 +50,10 @@ bbdata = {
         """,
     BbRegex.scratchBlock: r'<code class="blocksInline">\1</code>',
     BbRegex.scratchProject: r"""
-                  <iframe allowtransparency="true" width="485" height="402" src="//scratch.mit.edu/projects/embed/\1/?autostart=false" frameborder="0" allowfullscreen>
-                  </iframe>
-
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe allowtransparency="true" src="//scratch.mit.edu/projects/embed/\1/?autostart=false" frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
         """,
     BbRegex.bold: r'<b>\1</b>',
     BbRegex.italic: r'<i>\1</i>',
