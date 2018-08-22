@@ -16,7 +16,7 @@
     <div class="card-deck">
         {% for project in projects %}
             <a href="{% url 'project' project.projectTitle %}">
-                <div class="card">
+                <div class="card" style="width: 18rem;">
                     {% with "img/projectsPreview/"|add:project.projectThumbnail as imgUrl %}
                         <img class="card-img-top" src="{% static imgUrl %}" alt="{{ project.projectTitle }}">
                     {% endwith %}
