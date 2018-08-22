@@ -36,7 +36,7 @@ class SlideAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'projectTitle', 'projectSummary')
+    list_display = ('__str__', 'projectTitle', 'projectSummary', 'projectDifficulty')
 
 
 class ProjectSpriteAdmin(admin.ModelAdmin):

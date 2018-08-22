@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 
 class Category(models.Model):
@@ -69,6 +71,7 @@ class Project(models.Model):
     projectSummary = models.TextField(help_text="Court texte de description du project")
     projectOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo du projet")
     projectGameGoal = models.TextField(help_text="Définir l'ensemble des règles du jeu")
+    projectDifficulty = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)], help_text="Difficulté de réalisation du projet (note sur 10)")
 
     def __str__(self):
         return "Project " + self.projectTitle
