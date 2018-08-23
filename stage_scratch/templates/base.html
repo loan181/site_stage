@@ -64,7 +64,7 @@
                     {#                <li><a href="#about">About</a></li>#}
                     {#                <li><a href="#contact">Contact</a></li>#}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdownConcepts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Concepts</a>
+                        <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdownConcepts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="header-icn-rev" src="{% static "img/icons/concept.svg" %}"/>Concepts</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownConcepts">
                             {% for conceptName in allConceptName %}
                                 <a class="dropdown-item" href="{% url 'concept' conceptName%}">{{ conceptName }}</a>

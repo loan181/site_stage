@@ -15,6 +15,7 @@ class Concept(models.Model):
     conceptNumber = models.IntegerField(unique=True, blank=True, null=True, help_text="Numéro du concept (pas grave s'ils ne se suivent pas, ils servent pour donner un ordre logique)")
     conceptPreBlocksDescription = models.TextField(default="", help_text="Description courte avant que les blocs soit données")
     conceptPostBlocksDescription = models.TextField(default="", blank=True, null=True, help_text="Description après que les blocs soit données")
+    conceptIcon = models.CharField(max_length=50, null=True, blank=True, help_text="Nom de l'image utilisé comme icone pour ce concept (dans img/icons/concept/ )")
 
     def __str__(self):
         return self.conceptName

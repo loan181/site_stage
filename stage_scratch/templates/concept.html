@@ -8,7 +8,7 @@
 {% block content %}
     <pre class="blocks"></pre> <!-- Je sais pas pourquoi, mais les blocs ne se montre pas bien sans ça -->
 
-    <h1> {{ concept.conceptName }} </h1>
+    <h1> <img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }} </h1>
 
     <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
 

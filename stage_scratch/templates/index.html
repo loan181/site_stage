@@ -4,10 +4,11 @@
 {% load static %}
 
 {% block content %}
-    <h1> Concepts </h1>
+        <h1><img class="header-icn" src="{% static "img/icons/concept.svg" %}"/>Concepts </h1>
+
     <ul>
-        {% for conceptName in allConceptName %}
-            <li><a href="{% url 'concept' conceptName%}"><h4>{{ conceptName }}</h4></a></li>
+        {% for concept in concepts %}
+            <li><a href="{% url 'concept' concept.conceptName %}"><h4><img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }}</h4></a></li>
         {% endfor %}
     </ul>
     Les slides de tous les concepts sont disponibles sur : <a href="{% url "slide" %}">LIEN</a>
