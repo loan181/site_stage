@@ -2,6 +2,8 @@
 {% block title %}Home{% endblock title %}
 
 {% load static %}
+{% load extraTags %}
+
 
 {% block content %}
     <h1><img class="header-icn" src="{% static "img/icons/concept.svg" %}"/> Concepts </h1>
@@ -24,7 +26,7 @@
                 <p class="card-text">Jette un oeil ici pour commencer un nouveau projet ! Pleins de conseils et astuce pour bien réussir ;)</p>
             </div>
         </a>
-        {% for project in projects %}
+        {% for project in projects|orderQueryBy:'projectDifficulty' %}
 {#            <a href="{% url 'project' project.projectTitle %}">#}
                 <a href="{% url 'project' project.projectTitle %}" class="card text-dark mb-4" style="width: 18rem;text-decoration: none;">
                     {% with "img/projectsPreview/"|add:project.projectThumbnail as imgUrl %}
