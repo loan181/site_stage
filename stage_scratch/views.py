@@ -46,6 +46,14 @@ def concept(request, concept_name):
     }
     return render(request, 'concept.html', context)
 
+
+def myProject(request):
+    context = {
+        'allConceptName': getAllconceptsName(),
+    }
+    return render(request, 'projectCustom.html', context)
+
+
 def project(request, project_name):
     project = get_object_or_404(Project, projectTitle=project_name)
     projectSprites = project.projectsprite_set.all()
@@ -64,7 +72,6 @@ def slide(request):
         'allSlides': slides,
         'slideCategories': slideCategories,
     }
-
     return render(request, 'slide.html', context)
 
 

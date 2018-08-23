@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Commencer Projet{% endblock title %}
+
+{% load static %}
+{% load extraTags %}
+
+{% block extraScript %}
+    !-- add after bootstrap.min.css -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.0/dist/bootstrap-toc.min.css">
+    <!-- add after bootstrap.min.js -->
+    <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.0/dist/bootstrap-toc.min.js"></script>
+{% endblock extraScript %}
+
+{% block content %}
+
+    <h1 data-toc-skip>Comment créer ton propre projet de jeu ?</h1>
+    <p class="lead">Par où commencer pour faire ton jeu ? Comment le programmer ?</p>
+    <p>Toutes les réponses à ses questions sont juste en dessous !</p>
+
+    <h2 data-toc-skip>Ordre pour la création d'un projet</h2>
+    <nav id="toc" data-toggle="toc"></nav> {# automatic table of content #}
+
+    <h2>1. Définir les objectifs</h2>
+    <p class="lead">Que veut-tu que ton jeu fasse ? Qu'est ce que tu cherche à avoir ?</p>
+    <p>
+        Ca peut être un simple jeu de pong comme un jeu de plate-forme beaucoup plus compliqué. C'est à toi d'y réfléchir selon tes envies et d'inspiration, n'oublie pas que c'est toi qui testera le jeu après.<br>
+    </p>
+    <blockquote class="blockquote">
+        <p class="mb-0">Toujours voir <b>simple</b>! Il vaut mieux partir sur une petite idée et la faire évoluer qu'un gros projet dont tu ne verra jamais le bout !</p>
+    </blockquote>
+    <p>Garde bien à l'esprit que tes jeux préféres ont étaient créé par des grosses équipes (souvent + de 100 personnes) qui ont beaucoup plus de temps et d'expérience que toi</p>
+
+    <h2>2. Programmer les objectifs</h2>
+    <h3>2.1. Identifier les lutins</h3>
+    <p class="lead">De quoi avons nous besoin ?</p>
+    <p>
+        Dans cette étape il faudra que tu te creuse la tête et décide des lutins que tu auras besoin et ce que chacun doit faire<br>
+    </p>
+    <h3>2.2. Identifier les actions des lutins</h3>
+    <p class="lead">Qu'est ce que chaque lutin doit faire et quand ?</p>
+    <p>
+        N'oublie pas que le joueur n'aura pas accés au code du jeu, il ne faut donc surtout pas laisser de blocs "flotter" (sauf si tu ne veux pas qu'ils soient dans le jeux).<br>
+        {{ "s'orienter à (-90)<br>avancer de (10)"|scratchBlocks|safe }}
+        est "flottant" car il n'à pas d'évènement !<br>
+        {{ "quand [flèche gauche v] est pressé<br>s'orienter à (-90)<br>avancer de (10)"|scratchBlocks|safe }}
+        Là on est content :) Le joueur pourra jouer à notre super jeu en utilisant le clavier. <br><br>
+        Il faut donc lier chaque bloc(s) à un évènement (les blocs ayant un petit chapeau au dessus) comme : {{ "quand [ v] est pressé"|scratchBlock|safe }}, {{ "quand le drapeau vert pressé"|scratchBlock|safe }}, etc...<br>
+        La plupart du temps tu utilisera la combinaison :
+        {{ "quand le drapeau vert pressé<br>Actions d'initialisations ; commencer à un certain endroit, avoir une certaine orientation, etc.//Ce bloc n'existe pas, c'est à toi de chercher dans les blocs vu ensemble ce qu'il te faut ;)<br>répéter indéfiniment<br>Actions à faire tout le temps ; vérifier les collisions, etc.//Ce bloc n'existe pas, c'est à toi de chercher dans les blocs vu ensemble ce qu'il te faut ;)"|scratchBlocks|safe }}
+    </p>
+
+    <h2>3. Faire évoluer le jeu</h2>
+        <p class="lead">Comment améliorer ce qu'on à déjà ?</p>
+        <p>
+            Une fois le premier prototype terminé il est temps de réfléchir à la suite du projet.<br>
+            Tu peux soit partir sur un tout nouveau projet, soit ajouter des nouveaux éléments à ton jeu ; des niveaux différents ? des ennemis ? des bonus à collecter ? mesurer le temps pris pour terminé la partie ? etc...<br>
+            Il y a également la possibilité d'améliorer ton projet en modifiant ton code afin de le rendre plus stable et facile à maintenir, il faudra utiliser le concept de <i>variables</i>, <i>création de blocs</i> pour cela<br>
+        </p>
+{% endblock content %}

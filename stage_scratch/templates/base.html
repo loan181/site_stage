@@ -32,7 +32,6 @@
     <script src="{% static "scratchBlocks/translations-fr-v3-min.js" %}"></script>
 
     <!-- Maths API -->
-
     <script type="text/javascript"
             src="{% static "mathjax/MathJax.js" %}?config=TeX-MML-AM_CHTML">
         {#        src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'>#}
@@ -42,6 +41,9 @@
           tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
     </script>
+
+    {% block extraScript %}
+    {% endblock extraScript %}
 </head>
 
 

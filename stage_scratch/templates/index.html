@@ -14,6 +14,13 @@
 
     <h1> Idées de jeux </h1>
     <div class="card-deck">
+        <a href="{% url 'myProject' %}" class="card text-dark mb-4" style="width: 18rem;text-decoration: none;">
+                <img class="card-img-top" src="{% static "img/projectsPreview/projetInconnu.png" %}" alt="Projet personnel">
+            <div class="card-body">
+                <h5 class="card-title">Comment faire un projet personnel ?</h5>
+                <p class="card-text">Jette un oeil ici pour commencer un nouveau projet ! Pleins de conseils et astuce pour bien réussir ;)</p>
+            </div>
+        </a>
         {% for project in projects %}
 {#            <a href="{% url 'project' project.projectTitle %}">#}
                 <a href="{% url 'project' project.projectTitle %}" class="card text-dark mb-4" style="width: 18rem;text-decoration: none;">
@@ -28,7 +35,7 @@
                         <small class="text-muted">Difficulté : {{ project.projectDifficulty }}/10</small>
                     </div>
                 </a>
-                {% if forloop.counter|divisibleby:4 %} {# On saute une ligne tout les i % ... #}
+                {% if forloop.counter|add:1|divisibleby:4 %} {# On saute une ligne tout les i % ... #}
                     <div class="w-100 d-none d-xl-block"></div>
                 {% endif %}
 
