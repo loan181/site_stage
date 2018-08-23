@@ -7,9 +7,12 @@
 
 {% block content %}
     <h1><img class="header-icn" src="{% static "img/icons/concept.svg" %}"/> Concepts </h1>
-    <ul>
+    <ul class="list-group ">
         {% for concept in concepts %}
-            <li><a href="{% url 'concept' concept.conceptName %}"><h4><img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }}</h4></a></li>
+            <li class="list-group-item">
+                <h3><img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> <a href="{% url 'concept' concept.conceptName %}">{{ concept.conceptName }}</h3></a>
+                <p class="text-muted">{{ concept.conceptPreBlocksDescription|replaceBBCode|safe }}</p>
+            </li>
         {% endfor %}
     </ul>
 
