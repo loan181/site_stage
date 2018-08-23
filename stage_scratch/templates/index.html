@@ -4,16 +4,18 @@
 {% load static %}
 
 {% block content %}
-        <h1><img class="header-icn" src="{% static "img/icons/concept.svg" %}"/>Concepts </h1>
-
+    <h1><img class="header-icn" src="{% static "img/icons/concept.svg" %}"/> Concepts </h1>
     <ul>
         {% for concept in concepts %}
             <li><a href="{% url 'concept' concept.conceptName %}"><h4><img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }}</h4></a></li>
         {% endfor %}
     </ul>
-    Les slides de tous les concepts sont disponibles sur : <a href="{% url "slide" %}">LIEN</a>
 
-    <h1> Idées de jeux </h1>
+    <h1><img class="header-icn" src="{% static "img/icons/slide.png" %}"/> Slides de présentation</h1>
+    <p>Toutes les slides présentés pendant le cours (et plus) sont disponible sur ce  <a href="{% url "slide" %}">LIEN</a></p>
+
+
+    <h1><img class="header-icn" src="{% static "img/icons/games.png" %}"/> Idées de jeux </h1>
     <div class="card-deck">
         <a href="{% url 'myProject' %}" class="card text-dark mb-4" style="width: 18rem;text-decoration: none;">
                 <img class="card-img-top" src="{% static "img/projectsPreview/projetInconnu.png" %}" alt="Projet personnel">
