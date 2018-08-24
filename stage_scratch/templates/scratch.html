@@ -4,25 +4,49 @@
 <head>
     <title>Scratch Editor</title>
 
+    <script language="text/javascript">
+        var message="Function Disabled!";
+        function clickIE4() {
+            if (event.button==2) {
+                alert(message); return false;
+            }
+        }
+        function clickNS4(e) {
+            if (document.layers||document.getElementById&&!document.all) {
+                if (e.which==2||e.which==3){
+                    alert(message); return false;
+                }
+            }
+        }
+        if (document.layers) {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown=clickNS4;
+        }
+        else if (document.all&&!document.getElementById) {
+            document.onmousedown=clickIE4;
+        }
+        document.oncontextmenu=new Function("alert(message);return false")
+    </script>
+
     <script>
 		function JSeditorReady() {
-			document.getElementById("flashplayer").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");
+			document.getElementById("scratch-flash").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");
 			return true;
 		}
 	</script>
 
 </head>
 <body leftmargin="0" topmargin="0" scroll="no">
-{#    <embed id="flashplayer" width="100%" height="100%" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">#}
+    <embed id="scratch-flash" width="100%" height="100%" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">
 
-    <object id="flashplayer" style="display: inline; visibility: visible; position: relative; z-index: 1000;" type="application/x-shockwave-flash" height="100%" width="100%" SCALE="default">
-		<param name="movie" value="{% static "scratch/Scratch.swf" %}">
-		<param name="bgcolor" value="#00FFFF">
-		<param name="allowScriptAccess" value="always">
-		<param name="allowFullScreen" value="true">
-		<param name="wmode" VALUE="direct">
-		<param name="menu" VALUE="true">
-	</object>
+{#    <object id="scratch-flash" style="display: inline; visibility: visible; position: relative; z-index: 1000;" type="application/x-shockwave-flash" height="100%" width="100%" SCALE="default">#}
+{#		<param name="movie" value="{% static "scratch/Scratch.swf" %}">#}
+{#		<param name="bgcolor" value="#00FFFF">#}
+{#		<param name="allowScriptAccess" value="always">#}
+{#		<param name="allowFullScreen" value="true">#}
+{#		<param name="wmode" VALUE="direct">#}
+{#		<param name="menu" VALUE="true">#}
+{#	</object>#}
 
 
 </body>

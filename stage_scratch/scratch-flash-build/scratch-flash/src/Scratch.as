@@ -259,7 +259,7 @@ public class Scratch extends Sprite {
 		function handleComplete(e:Event):void {
 			lp.setInfo("Opening project...")
 			runtime.installProjectFromData(loader.data);
-			setProjectName("OpenSprites Backpack");
+			//setProjectName("Default project name");
 			removeLoadProgressBox();
 			ExternalInterface.call('JSloadProjectUrlCallback', false);
 		}
