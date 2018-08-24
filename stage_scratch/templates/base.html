@@ -60,7 +60,6 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    {#                <li class="active"><a href="#">Home</a></li>#}
                     {#                <li><a href="#about">About</a></li>#}
                     {#                <li><a href="#contact">Contact</a></li>#}
                     <li class="nav-item dropdown">
@@ -71,6 +70,8 @@
                             {% endfor %}
                         </div>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'scratchOffline' %}"> <img class="header-icn-rev" src="{% static "img/icons/hammer.png" %}"/> Scratch hors-ligne</a></li>
+
                 </ul>
                 {#              <ul class="nav navbar-nav navbar-right">#}
                 {#                <li><a href="../navbar/">Default</a></li>#}
