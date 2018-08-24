@@ -244,6 +244,7 @@ public class Scratch extends Sprite {
 		}
 
 		addExternalCallback('ASloadProjectUrl', loadProjectUrl);
+        addExternalCallback('ASsetEditMode', setEditMode);
 	}
 
 	protected function jsEditorReady():void {
