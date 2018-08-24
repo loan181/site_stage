@@ -40,7 +40,7 @@ class ConceptExercise(models.Model):
     exerciseStatement = models.TextField(help_text="enoncé de l'exercice")
     exerciseBest = models.BooleanField(default=False, help_text="Meilleur exercice")
     exerciseOnlineProjectId = models.IntegerField(null=True, blank=True, help_text="ID utilisé sur le site de scratch pour une démo de l'exercice (facultatif)")
-
+    exerciceSolution = models.TextField(default="", help_text="Solution de l'exercice")
 
     def __str__(self):
         return "Ex "+str(self.exerciseNumber)+ ' (' + str(self.exerciseConcept) + ')'+" : "+self.exerciseName
