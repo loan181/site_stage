@@ -242,6 +242,8 @@ public class Scratch extends Sprite {
 			addExternalCallback('ASloadBase64SBX', loadBase64SBX);
 			addExternalCallback('ASsetModalOverlay', setModalOverlay);
 		}
+
+		addExternalCallback('ASloadProjectUrl', loadProjectUrl);
 	}
 
 	protected function jsEditorReady():void {
@@ -250,6 +252,39 @@ public class Scratch extends Sprite {
 				if (!success) jsThrowError('Calling JSeditorReady() failed.');
 			});
 		}
+	}
+
+	// Source : https://github.com/OpenSprites/scratch-flash/blob/master/src/Scratch.as#L248
+	public function loadProjectUrl(url:String){
+		function handleComplete(e:Event):void {
+			lp.setInfo("Opening project...")
+			runtime.installProjectFromData(loader.data);
+			setProjectName("OpenSprites Backpack");
+			removeLoadProgressBox();
+			ExternalInterface.call('JSloadProjectUrlCallback', false);
+		}
+
+		function handleError(e:ErrorEvent):void {
+			jsThrowError('Failed to load project: ' + e.toString());
+			removeLoadProgressBox();
+			ExternalInterface.call('JSloadProjectUrlCallback', e);
+		}
+
+		function handleProgress(e:ProgressEvent) {
+			lp.setProgress(e.bytesLoaded / e.bytesTotal);
+			lp.setInfo("" + (Math.floor(e.bytesLoaded/100000)/10) + "MB / " + (Math.floor(e.bytesTotal/100000)/10) + "MB")
+		}
+
+		addLoadProgressBox("Chargement en cours...");
+		loadInProgress = true;
+		var request:URLRequest = new URLRequest(url);
+		var loader:URLLoader = new URLLoader(request);
+		loader.dataFormat = URLLoaderDataFormat.BINARY;
+		loader.addEventListener(Event.COMPLETE, handleComplete);
+		loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, handleError);
+		loader.addEventListener(IOErrorEvent.IO_ERROR, handleError);
+		loader.addEventListener(ProgressEvent.PROGRESS, handleProgress);
+		loader.load(request);
 	}
 
 	private function loadSingleGithubURL(url:String):void {
