@@ -19,6 +19,9 @@ def index(request):
 def getAllconceptsName():
     return tuple(Concept.objects.values_list('conceptName', flat=True))
 
+def isLocalhost(request):
+    host = request.get_host()
+    return host.startswith('127.0.0.1') or host.startswith('localhost')
 
 def concept(request, concept_name):
     conceptInfo = get_object_or_404(Concept, conceptName=concept_name)
@@ -35,6 +38,8 @@ def concept(request, concept_name):
     if lastConcept != None:
         lastConceptName = lastConcept.conceptName
 
+    localhost = isLocalhost(request)
+
     context = {
         'allConceptName' : getAllconceptsName(),
         'concept' : conceptInfo,
@@ -43,6 +48,7 @@ def concept(request, concept_name):
         'conceptExercises' : conceptExercises,
         'conceptNext' : nextConceptName,
         'conceptLast' : lastConceptName,
+        'admin' : localhost,
     }
     return render(request, 'concept.html', context)
 

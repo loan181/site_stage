@@ -8,6 +8,9 @@
 {% block content %}
     <pre class="blocks"></pre> <!-- Je sais pas pourquoi, mais les blocs ne se montre pas bien sans ça -->
 
+    {% if admin %}
+        <p class="text-muted lead">Vous êtes sur la page des concept comme administrateur, tu pourra voir les solutions aux exercices et accéder aux codes sources des projets Scratch</p>
+    {% endif  %}
     <h1> <img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }} </h1>
 
     <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
@@ -38,7 +41,9 @@
                             <div class="col-sm-6">
                                 {{ example.exampleBlocks|scratchBlocks|safe }}
                                 {{ example.exampleText|replaceBBCode|safe|linebreaks }}
-                                {#                                <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>#}
+                                {% if admin %}
+                                    <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -95,6 +100,9 @@
                         {% if exercise.exerciseOnlineProjectId %}
                             {% autoescape off %}
                                 {% spoil "Démo" exercise.exerciseOnlineProjectId|scratchOnlineProject|safe %}
+                                {% if admin %}
+                                    <a class="btn btn-info" href="{{ exercise.exerciseOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                {% endif %}
                             {% endautoescape %}
                         {% endif  %}
 
@@ -104,6 +112,12 @@
                                 {% spoil "Indice "|addStr:forloop.counter hint.hintContent|replaceBBCode|safe|linebreaks False "hint"|addStr:forloop.counter|addStr:"ex"|addStr:forloop.parentloop.counter%}
                             {% endfor %}
                         {% endautoescape %}
+
+                        {% if admin and exercise.exerciceSolution %}
+                            {% autoescape off %}
+                                {% spoil "Solution" exercise.exerciceSolution|scratchBlocks|safe %}
+                            {% endautoescape %}
+                        {% endif  %}
                     </div>
                 </div>
             </div>
