@@ -11,7 +11,7 @@
     {% if admin %}
         <p class="text-muted lead">Vous êtes sur la page des concept comme administrateur, tu pourra voir les solutions aux exercices et accéder aux codes sources des projets Scratch</p>
     {% endif  %}
-    <h1> <img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }} </h1>
+    <h1 class="mt-5"> <img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }} </h1>
 
     <h4>{{ concept.conceptPreBlocksDescription|replaceBBCode|safe|linebreaks }}</h4>
 
