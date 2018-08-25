@@ -5,76 +5,103 @@
 {% load extraTags %}
 
 {% block content %}
-    <h1> Tests </h1>
+{#    <h1> Tests </h1>#}
+{##}
+{#    <h2> Mettre une image : </h2>#}
+{#    <img src="{% static "img/Image1.png" %}" alt="img">#}
+{##}
+{#    <h2> Insérer des blocs personnalisés Scratch : </h2>#}
+{#    <pre class="blocks">#}
+{#        quand le drapeau vert pressé#}
+{#        répéter indéfiniment#}
+{#            tourner droite de (15) degrés#}
+{#            dire [Coucou !] pendant (2) secondes#}
+{#            si &lt;souris pressée?&gt; alors#}
+{#                ajouter à [var v] (1)#}
+{#    </pre>#}
+{#    Ou inline : <code class="blocksInline">tourner droite de (15) degrés</code> trop cool !#}
+{#    Ou inline : <code class="blocksInline">si <> alors<br/>sinon</code> trop cool !#}
+{##}
+{##}
+{#    <h2>Ajout d'image depuis du texte :</h2>#}
+{##}
+{#    {{ testStringPicture|replaceBBCode|safe }}#}
+{#    <br>#}
+{##}
+{#    <h2>Ajouter des blocs de spoil unique</h2>#}
+{##}
+{#    {{ testStringSpoiler|replaceBBCode|safe }}#}
+{##}
+{#    <div class="card">#}
+{#        <div class="card-header" data-toggle="collapse" data-target="#collapseTestM">#}
+{#          <h5 class="mb-0">#}
+{#            <button class="btn btn-link">#}
+{#                Nom#}
+{#            </button>#}
+{#          </h5>#}
+{#        </div>#}
+{#        <div id="collapseTestM" class="collapse">#}
+{#          <div class="card-body">#}
+{#              <div class="col-sm-6">#}
+{#                  dez#}
+{#              </div>#}
+{#              <div class="col-sm-6">#}
+{#              <pre class="blocks">#}
+{#        quand le drapeau vert pressé#}
+{#        répéter indéfiniment#}
+{#            tourner droite de (15) degrés#}
+{#            dire [Coucou !] pendant (2) secondes#}
+{#            si &lt;souris pressée?&gt; alors#}
+{#                ajouter à [var v] (1)#}
+{#    </pre>#}
+{#              </div>#}
+{#          </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <h2> Projet Scratch intégré </h2>#}
+{#    {{ testEmbedScratchProject|replaceBBCode|safe }}#}
+{#<br/>#}
+{#    Aussi depuis le build local#}
+{#    <script>#}
+{#		function JSeditorReady() {#}
+{#			document.getElementById("scratch-flash").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");#}
+{#			return true;#}
+{#		}#}
+{#	</script>#}
+{#    <embed id="scratch-flas" width="100%" height="700" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">#}
+{#    <br/>#}
 
-    <h2> Mettre une image : </h2>
-    <img src="{% static "img/Image1.png" %}" alt="img">
-
-    <h2> Insérer des blocs personnalisés Scratch : </h2>
-    <pre class="blocks">
-        quand le drapeau vert pressé
-        répéter indéfiniment
-            tourner droite de (15) degrés
-            dire [Coucou !] pendant (2) secondes
-            si &lt;souris pressée?&gt; alors
-                ajouter à [var v] (1)
-    </pre>
-    Ou inline : <code class="blocksInline">tourner droite de (15) degrés</code> trop cool !
-    Ou inline : <code class="blocksInline">if <[] touché ?> then
-
-    else
-    ...</code> trop cool !
+    <h2> ajout dynamique</h2>
+    <embed id="scratch-flash-orientation-exemple-orientation1" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation1.sb2" %}" data-editmode="True">
+    <embed id="scratch-flash-orientation-exemple-orientation2" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation2.sb2" %}" data-editmode="False">
 
 
-    <h2>Ajout d'image depuis du texte :</h2>
 
-    {{ testStringPicture|replaceBBCode|safe }}
-    <br>
-
-    <h2>Ajouter des blocs de spoil unique</h2>
-
-    {{ testStringSpoiler|replaceBBCode|safe }}
-
-    <div class="card">
-        <div class="card-header" data-toggle="collapse" data-target="#collapseTestM">
-          <h5 class="mb-0">
-            <button class="btn btn-link">
-                Nom
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTestM" class="collapse">
-          <div class="card-body">
-              <div class="col-sm-6">
-                  dez
-              </div>
-              <div class="col-sm-6">
-              <pre class="blocks">
-        quand le drapeau vert pressé
-        répéter indéfiniment
-            tourner droite de (15) degrés
-            dire [Coucou !] pendant (2) secondes
-            si &lt;souris pressée?&gt; alors
-                ajouter à [var v] (1)
-    </pre>
-              </div>
-          </div>
-        </div>
-    </div>
-
-    <h2> Projet Scratch intégré </h2>
-    {{ testEmbedScratchProject|replaceBBCode|safe }}
-<br/>
-    Aussi depuis le build local
     <script>
-		function JSeditorReady() {
-			document.getElementById("scratch-flash").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");
-			return true;
-		}
-	</script>
-    <embed id="scratch-flash" width="100%" height="700" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">
-    <br/>
-
-
-
+        var sratchsEmbed = $('[id^="scratch-flash-"]');
+        var already  = 0;
+        var l = sratchsEmbed.length;
+        console.log(sratchsEmbed);
+        
+    function JSeditorReady() {
+        if (already === l-1) {
+            already = true;
+            console.log("CALL : "+JSeditorReady.caller);
+            for (var i=0; i<sratchsEmbed.length; i++) {
+                sratchsEmbed[i].ASloadProjectUrl(sratchsEmbed[i].getAttribute("data-sbfile"));
+                if (sratchsEmbed[i].getAttribute("data-editmode") === "True") {
+                    sratchsEmbed[i].ASsetEditMode(true);
+                }
+                else {
+                    sratchsEmbed[i].ASsetEditMode(false);
+                }
+            }
+        }
+        else {
+            already += 1;
+        }
+        return true;
+    }
+    </script>
 {% endblock content %}

@@ -132,6 +132,13 @@ def spoil(title, content, visible=True, idTitle=None):
     idTitle = word_replace({" ": "_"}, idTitle)
     return indexReplace(modSpoil, (title, idTitle, content))
 
+@register.simple_tag
+def scratchOfflineProject(filePath, showEditor=False):
+    ret = ""
+    generatedID = "scratch-flash-"+filePath.replace("/", "-")
+    scratchPath = staticPath+"scratch/Scratch.swf"
+    ret += '<embed id={} class="embed-responsive embed-responsive-4by3" src="{}" data-sbFile={} data-editMode={}>'.format(generatedID, scratchPath, filePath, showEditor)
+    return ret
 
 @register.filter
 def onlineProjectLink(value):

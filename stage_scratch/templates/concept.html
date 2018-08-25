@@ -36,7 +36,13 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
+                                {% if not example.exampleScratchFile %}
+                                    {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
+                                {% else %}
+                                    {% autoescape off %}
+                                        {% scratchOfflineProject example.exampleScratchFile %}
+                                    {% endautoescape %}
+                                {% endif %}
                             </div>
                             <div class="col-sm-6">
                                 {{ example.exampleBlocks|scratchBlocks|safe }}
