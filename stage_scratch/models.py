@@ -28,6 +28,7 @@ class ConceptExample(models.Model):
     exampleBlocks = models.TextField(null=True, help_text="Blocs utilisés pour la réalisation de l'exemple")
     exampleText = models.TextField(help_text="Description de l'exemple")
     exampleOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo de l'exemple")
+    exampleScratchFile = models.CharField(blank=True, null=True, max_length=50, help_text="Nom du fichier scratch (sans .sb2) situé dans '/static/scratch/files/examples'")
 
     def __str__(self):
         return "Exemple " + str(self.exampleNumber) + " de " + str(self.exampleConcept) + " : " + self.exampleName
