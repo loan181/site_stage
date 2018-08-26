@@ -36,7 +36,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                {% if not example.exampleScratchFile %}
+                                {# if not example.exampleScratchFile #}
+                                {% if True %}
                                     {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
                                 {% else %}
                                     {% autoescape off %}
