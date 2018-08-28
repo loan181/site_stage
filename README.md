@@ -101,5 +101,30 @@ Certaines choses supplémentaire sont ajouté si vous êtes considéré comme ad
 
 ## Modifier le site
 
+### Page de test
+Disponible sur `scratch/test` son template est assez simple et te servira à t'y retrouver avec la construction html du site.
+
+### BBCode
+Le site utilise des genres de balises en BBCode personalisé afin de préciser certain environnements particulier. La syntaxe est dans le [code source](https://github.com/loan181/site_stage/blob/master/stage_scratch/templatetags/extraTags.py#L9)
+
+#### Blocs Scratch
+Les balises `[scratchBlock]...[/scratchBlock]` et `[scratchBlocks]...[/scratchBlocks]` te seront utile.
+La première permet de mettre des blocs dans le texte directement (inline), mais ne permettra qu'un seul bloc. L'autre sautera à la ligne automatiquement.
+
+Les traductions des blocs en français sont disponible [ici](https://github.com/scratchblocks/scratchblocks/blob/master/locales/fr.json).
+
+### Structure en base de donnée
+Après avoir créer un super-user pour le site (voir [Django doc](https://docs.djangoproject.com/fr/2.1/intro/tutorial02/#creating-an-admin-user)).
+Tu pourra accéder au panel admin et modifier la base de donnée directement.
+
+#### Concept
+1) Créer le concept dant la table `Concept`
+    - Les blocs utilisés par le concept doivent être précisé dans la table `Scratch blocks`
+2) Ajoute lui des exemple dans la table `Concept examples`
+3) Ajoute des exercices dans `Concept exercises`
+    - Ajoute des indice à l'exercice dans `Concept exercise hints`
+    - Ajoute des blocs additionnels si nécessaire en ajoutant la relation dans `Scratch blocks`
+
+
 ## Auteurs
 - Loan Sens - Commencement du site
