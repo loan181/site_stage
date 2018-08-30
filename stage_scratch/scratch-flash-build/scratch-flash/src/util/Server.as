@@ -328,11 +328,13 @@ public class Server implements IServer {
 	//------------------------------
 
 	public function getLanguageList(whenDone:Function):void {
-		serverGet('locale/lang_list.txt', whenDone);
+		var url:String = getCdnStaticSiteURL() + 'locale/lang_list.txt';
+		serverGet(url, whenDone);
 	}
 
 	public function getPOFile(lang:String, whenDone:Function):void {
-		serverGet('locale/' + lang + '.po', whenDone);
+		var url:String = getCdnStaticSiteURL() + 'locale/' + lang + '.po';
+		serverGet(url, whenDone);
 	}
 
 	public function getSelectedLang(whenDone:Function):void {
