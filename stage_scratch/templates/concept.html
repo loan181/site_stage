@@ -36,8 +36,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                {# if not example.exampleScratchFile #}
-                                {% if True %}
+                                 {% if not example.exampleScratchFile  %}
                                     {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
                                 {% else %}
                                     {% autoescape off %}
@@ -49,7 +48,9 @@
                                 {{ example.exampleBlocks|scratchBlocks|safe }}
                                 {{ example.exampleText|replaceBBCode|safe|linebreaks }}
                                 {% if admin %}
-                                    <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                    {% if example.exampleOnlineProjectId %}
+                                        <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -147,4 +148,43 @@
             {% endif %}
         </ul>
     </nav>
+
+
+    <script>
+        var scratchLoadTarget = null; // target that must load it's scratch content
+
+        // Refresh la cible avec l'événement d'afichage
+        $(".collapse").on('show.bs.collapse', function () {
+            console.log("EVENT");
+            scratchLoadTarget = jQuery(this).find("embed"); // utiliser .find ??
+        });
+
+        // Appelé automatiquement par le swf de scratch au démarrage
+        function JSeditorReady() {
+            console.log("CALL to JSeditorReady, with target : ");
+            console.log(scratchLoadTarget);
+
+            if (scratchLoadTarget != null) {
+                for (var i=0; i<scratchLoadTarget.length; i++) {
+                    // Load l'URL
+                    var url = "{% static "scratch/files/examples/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
+                    console.log("URL : " + url);
+                    scratchLoadTarget[i].ASloadProjectUrl(url);
+                    // Load le mode éditeur ou jeu
+                    if (scratchLoadTarget[i].getAttribute("data-editmode") === "True") {
+                        scratchLoadTarget[i].ASsetEditMode(true);
+                    }
+                    else {
+                        scratchLoadTarget[i].ASsetEditMode(false);
+                    }
+
+                }
+            } else {
+                console.warn("Appel de JSeditorReady sans cible");
+            }
+
+            return true;
+        }
+
+    </script>
 {% endblock content %}
