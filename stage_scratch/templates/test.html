@@ -63,28 +63,59 @@
     {{ testEmbedScratchProject|replaceBBCode|safe }}
     <br/>
     Aussi depuis le build local
-    <script>
-        function JSeditorReady() {
-            document.getElementById("scratch-flash").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");
-            return true;
-        }
-    </script>
-    <embed id="scratch-flas" width="100%" height="700" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">
+
+{#    <script>#}
+{#        function JSeditorReady() {#}
+{#            document.getElementById("scratch-flash").ASloadProjectUrl("{% static "scratchProjects/test.sb2" %}");#}
+{#            return true;#}
+{#        }#}
+{#    </script>#}
+
+{#    <embed id="scratch-flas" width="100%" height="700" fullscreen="yes" src="{% static "scratch/Scratch.swf" %}">#}
     <br/>
 
-    {# TODO : add to main page #}
+    TODO : add to main page
 
     <h2> ajout dynamique</h2>
-    <embed id="scratch-flash-orientation-exemple-orientation1" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation1.sb2" %}" data-editmode="True">
-    <embed id="scratch-flash-orientation-exemple-orientation2" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation2.sb2" %}" data-editmode="False">
+{#    <div class="embed-responsive embed-responsive-4by3">#}
+{#        <embed id="scratch-flash-orientation-exemple-orientation1" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation1.sb2" %}" data-editmode="True">#}
+{#    </div>#}
+{#    <embed id="scratch-flash-orientation-exemple-orientation1" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation1.sb2" %}" data-editmode="True">#}
 
+    <div class="card">
+        <div class="card-header" data-toggle="collapse" data-target="#collapseTestScratchFlash2">
+            <h5 class="mb-0">
+                <button class="btn btn-link">
+                    Nom
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTestScratchFlash2" class="collapse">
+            <embed id="scratch-flash-orientation-exemple-orientation2" width="100%" height="700" fullscreen="yes" src="/static/scratch/Scratch.swf" data-sbfile="{% static "scratch/files/examples/orientation/exemple-orientation2.sb2" %}" data-editmode="False">
+        </div>
+    </div>
 
 
     <script>
+
         var sratchsEmbed = $('[id^="scratch-flash-"]');
+        /*
+        $('embed').on('load', function (event) {
+            for (var i=0; i<sratchsEmbed.length; i++) {
+                    sratchsEmbed[i].ASloadProjectUrl(sratchsEmbed[i].getAttribute("data-sbfile"));
+                    if (sratchsEmbed[i].getAttribute("data-editmode") === "True") {
+                        sratchsEmbed[i].ASsetEditMode(true);
+                    }
+                    else {
+                        sratchsEmbed[i].ASsetEditMode(false);
+                    }
+                }
+        });
+        */
+        var totalJSeditorReadyCall = $('[src="{% static "scratch/Scratch.swf" %}"]').length;
         var already  = 0;
-        var l = sratchsEmbed.length;
         console.log(sratchsEmbed);
+        var targetSpoil = null;
 
         /*
         TODO :
@@ -99,10 +130,31 @@
 
         La fonction JSeditorReady doit renvoyer true, on pourrait juste return et load plus tard (quand la balise spoil est ouverte ? quand boutton pressé ?)
         */
+        {#$('#collapseTestScratchFlash2').on('show.bs.collapse', function () {#}
+        $(".collapse").on('show.bs.collapse', function () {
+            console.log("EVENT");
+            targetSpoil = jQuery(this).children("embed");
+        });
         function JSeditorReady() {
-            if (already === l-1) {
+            console.log("CALL");
+            console.log(targetSpoil);
+
+            if (targetSpoil != null) {
+                for (var i=0; i<targetSpoil.length; i++) {
+                    targetSpoil[i].ASloadProjectUrl(sratchsEmbed[i].getAttribute("data-sbfile"));
+                    if (targetSpoil[i].getAttribute("data-editmode") === "True") {
+                        targetSpoil[i].ASsetEditMode(true);
+                    }
+                    else {
+                        targetSpoil[i].ASsetEditMode(false);
+                    }
+
+                }
+            }
+
+            /*
+            if (already === totalJSeditorReadyCall-1) {
                 already = true;
-                console.log("CALL : "+JSeditorReady.caller);
                 for (var i=0; i<sratchsEmbed.length; i++) {
                     sratchsEmbed[i].ASloadProjectUrl(sratchsEmbed[i].getAttribute("data-sbfile"));
                     if (sratchsEmbed[i].getAttribute("data-editmode") === "True") {
@@ -116,7 +168,10 @@
             else {
                 already += 1;
             }
+            */
             return true;
         }
     </script>
+
+    <br>
 {% endblock content %}

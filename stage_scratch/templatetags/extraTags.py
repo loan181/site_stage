@@ -133,12 +133,12 @@ def spoil(title, content, visible=True, idTitle=None):
     return indexReplace(modSpoil, (title, idTitle, content))
 
 @register.simple_tag
-def scratchOfflineProject(filePath, showEditor=False):
+def scratchOfflineProject(filePath, category, showEditor=False):
     ret = ""
     generatedID = "scratch-flash-"+filePath.replace("/", "-")
     scratchPath = staticPath+"scratch/Scratch.swf"
     ret += '<div class="embed-responsive embed-responsive-4by3">'
-    ret += '<embed id={} class="embed-responsive embed-responsive-4by3" src="{}" data-sbFile={} data-editMode={}>'.format(generatedID, scratchPath, filePath, showEditor)
+    ret += '<embed id={} class="embed-responsive embed-responsive-4by3" src="{}" data-sbFile={} data-editMode={}>'.format(generatedID, scratchPath, category+"/"+filePath, showEditor)
     ret += '</div>'
     return ret
 

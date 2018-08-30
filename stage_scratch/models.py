@@ -41,6 +41,7 @@ class ConceptExercise(models.Model):
     exerciseStatement = models.TextField(help_text="enoncé de l'exercice")
     exerciseBest = models.BooleanField(default=False, help_text="Meilleur exercice")
     exerciseOnlineProjectId = models.IntegerField(null=True, blank=True, help_text="ID utilisé sur le site de scratch pour une démo de l'exercice (facultatif)")
+    exerciseScratchFile = models.CharField(blank=True, null=True, max_length=50, help_text="Nom du fichier scratch (sans .sb2) situé dans '/static/scratch/files/exercices'")
     exerciceSolution = models.TextField(default="", help_text="Solution de l'exercice")
 
     def __str__(self):

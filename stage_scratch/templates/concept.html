@@ -36,11 +36,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                 {% if not example.exampleScratchFile  %}
+                                {# If an offline file version is available, displays it #}
+                                {% if not example.exampleScratchFile  %}
                                     {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
                                 {% else %}
                                     {% autoescape off %}
-                                        {% scratchOfflineProject example.exampleScratchFile %}
+                                        {% scratchOfflineProject example.exampleScratchFile "examples" %}
                                     {% endautoescape %}
                                 {% endif %}
                             </div>
@@ -76,7 +77,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="text-right"> <h4>
-                            {% if exercise.exerciseOnlineProjectId %}
+                            {% if exercise.exerciseOnlineProjectId or exercise.exerciseScratchFile %}
                                 <p class="text-success" style="display:inline">⚑</p>
                             {% endif %}
                             {% if exercise.exerciseBest %}
@@ -104,8 +105,14 @@
                             </div>
                         {% endif %}
 
-                        {# Demo preview if given #}
-                        {% if exercise.exerciseOnlineProjectId %}
+                        {# Demo preview if given (offline try first, if not given try online) #}
+                        {% if exercise.exerciseScratchFile %}
+                            {% autoescape off %}
+                                {# TODO : find a way to put it into a demo collapse #}
+                                {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
+                                {# TODO : add a buttton to switch to edit mode ? only in admin mode (call ASeditMode with current id) #}
+                            {% endautoescape %}
+                        {% elif exercise.exerciseOnlineProjectId %}
                             {% autoescape off %}
                                 {% spoil "Démo" exercise.exerciseOnlineProjectId|scratchOnlineProject|safe %}
                                 {% if admin %}
@@ -167,7 +174,7 @@
             if (scratchLoadTarget != null) {
                 for (var i=0; i<scratchLoadTarget.length; i++) {
                     // Load l'URL
-                    var url = "{% static "scratch/files/examples/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
+                    var url = "{% static "scratch/files/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
                     console.log("URL : " + url);
                     scratchLoadTarget[i].ASloadProjectUrl(url);
                     // Load le mode éditeur ou jeu
