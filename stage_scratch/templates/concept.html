@@ -39,7 +39,7 @@
                                 {# If an offline file version is available, displays it #}
                                 {% if not example.exampleScratchFile  %}
                                     {{ example.exampleOnlineProjectId|scratchOnlineProject|safe }}
-                                {% else %}
+                                {% elif example.exampleScratchFile %}
                                     {% autoescape off %}
                                         {% scratchOfflineProject example.exampleScratchFile "examples" %}
                                     {% endautoescape %}
@@ -51,6 +51,9 @@
                                 {% if admin %}
                                     {% if example.exampleOnlineProjectId %}
                                         <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                    {% endif %}
+                                    {% if example.exampleScratchFile %}
+                                        <a class="btn btn-info" onclick="loadFile($(this).parent().parent().find('embed')[0])" role="button">Re-charger le projet</a>
                                     {% endif %}
                                 {% endif %}
                             </div>
