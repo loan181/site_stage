@@ -112,6 +112,7 @@
                                     {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
                                     {% if admin %}
                                         <a class="btn btn-info" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
+                                        <a class="btn btn-info" onclick="loadFile($(this).parent().find('embed')[0])" role="button">Re-charger le projet</a>
                                     {% endif %}
                                 {% stopSpoil %}
                             {% endautoescape %}
@@ -194,7 +195,7 @@
 
         // Set loading file based on data-sbfile information
         function loadFile(scratchOfflineProject) {
-             var url = "{% static "scratch/files/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
+             var url = "{% static "scratch/files/" %}"+scratchOfflineProject.getAttribute("data-sbfile")+".sb2";
             console.log("URL : " + url);
             scratchOfflineProject.ASloadProjectUrl(url);
         }
