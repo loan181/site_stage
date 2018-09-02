@@ -110,8 +110,10 @@
                             {% autoescape off %}
                                 {% startSpoil "Démo" "DemoEx"|addStr:forloop.counter %}
                                     {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
+                                    {% if admin %}
+                                        <a class="btn btn-info" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
+                                    {% endif %}
                                 {% stopSpoil %}
-                                {# TODO : add a buttton to switch to edit mode ? only in admin mode (call ASeditMode with current id) #}
                             {% endautoescape %}
                         {% elif exercise.exerciseOnlineProjectId %}
                             {% autoescape off %}
@@ -167,6 +169,36 @@
             scratchLoadTarget = jQuery(this).find("embed"); // utiliser .find ??
         });
 
+        // Toggle in edition mode for a given scratch project
+        function toggleEdition(scratchOfflineProject) {
+            console.log("Toggle edition for :");
+            console.log(scratchOfflineProject);
+            if (scratchOfflineProject.getAttribute("data-editmode") === "True") {
+                scratchOfflineProject.setAttribute("data-editmode", "False");
+            }
+            else {
+                scratchOfflineProject.setAttribute("data-editmode", "True");
+            }
+            loadEdition(scratchOfflineProject);
+        }
+
+        // Set Edition mode base on data-editmode information
+        function loadEdition(scratchOfflineProject) {
+             if (scratchOfflineProject.getAttribute("data-editmode") === "True") {
+                scratchOfflineProject.ASsetEditMode(true);
+            }
+            else {
+                scratchOfflineProject.ASsetEditMode(false);
+            }
+        }
+
+        // Set loading file based on data-sbfile information
+        function loadFile(scratchOfflineProject) {
+             var url = "{% static "scratch/files/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
+            console.log("URL : " + url);
+            scratchOfflineProject.ASloadProjectUrl(url);
+        }
+
         // Appelé automatiquement par le swf de scratch au démarrage
         function JSeditorReady() {
             console.log("CALL to JSeditorReady, with target : ");
@@ -175,17 +207,9 @@
             if (scratchLoadTarget != null) {
                 for (var i=0; i<scratchLoadTarget.length; i++) {
                     // Load l'URL
-                    var url = "{% static "scratch/files/" %}"+scratchLoadTarget[i].getAttribute("data-sbfile")+".sb2";
-                    console.log("URL : " + url);
-                    scratchLoadTarget[i].ASloadProjectUrl(url);
+                    loadFile(scratchLoadTarget[i]);
                     // Load le mode éditeur ou jeu
-                    if (scratchLoadTarget[i].getAttribute("data-editmode") === "True") {
-                        scratchLoadTarget[i].ASsetEditMode(true);
-                    }
-                    else {
-                        scratchLoadTarget[i].ASsetEditMode(false);
-                    }
-
+                    loadEdition(scratchLoadTarget[i]);
                 }
             } else {
                 console.warn("Appel de JSeditorReady sans cible");
