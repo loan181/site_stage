@@ -6,14 +6,28 @@
 
 {% block content %}
     {# TODO : ajouter les concepts nécessaires à la réalisation du projet (coordonnées, orientation, etc.) #}
+    {% if admin %}
+        <p class="text-muted lead">Vous êtes sur la page des projets comme administrateur</p>
+    {% endif %}
+
     <h1> {{ project.projectTitle }} </h1>
     <p class="text-muted">{{ project.projectSummary }}</p>
 
     <h2 id="resume">Résumé</h2>
     <p>{{ project.projectGameGoal|linebreaks }}</p>
 
+
     <h2>Démo</h2>
-    {{ project.projectOnlineProjectId|scratchOnlineProject|safe }}
+{#    {{ project.projectOnlineProjectId|scratchOnlineProject|safe }}#}
+    {% autoescape off %}
+        {% startSpoil "Démo" "demoProject" %}
+            {% scratchOfflineProject project.projectScratchFile "projects" %}
+            {% if admin %}
+                <a class="btn btn-info" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
+            {% endif %}
+            <a class="btn btn-info" onclick="loadFile($(this).parent().find('embed')[0])" role="button">Re-charger le projet</a>
+        {% stopSpoil %}
+    {% endautoescape %}
 
     <h2>Réalisation</h2>
 
@@ -40,5 +54,27 @@
     {% endfor %}
 
     {# TODO : ajouter une section sur les suggestions d'amélioration du jeu (niveau en plus, etc.) avec les concepts nécessitant l'ajout (varaibles, messages, ...) #}
+
+    <script>
+    function JSeditorReady() {
+        var scratchLoadTarget = jQuery(this).find("embed");
+        console.log("CALL to JSeditorReady, with target : ");
+        console.log(scratchLoadTarget);
+
+        if (scratchLoadTarget != null) {
+            for (var i=0; i<scratchLoadTarget.length; i++) {
+                // Load l'URL
+                loadFile(scratchLoadTarget[i]);
+                // Load le mode éditeur ou jeu
+                loadEdition(scratchLoadTarget[i]);
+            }
+        } else {
+            console.warn("Appel de JSeditorReady sans cible");
+        }
+
+        return true;
+    }
+
+    </script>
 
 {% endblock content %}

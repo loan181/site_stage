@@ -73,6 +73,7 @@ class Project(models.Model):
     projectThumbnail = models.CharField(max_length=50, help_text="Nom de l'aperçu du projet dans static/img/projectsPreview")
     projectSummary = models.TextField(help_text="Court texte de description du project")
     projectOnlineProjectId = models.IntegerField(null=True, help_text="ID utilisé sur le site de scratch pour une démo du projet")
+    projectScratchFile = models.CharField(blank=True, null=True, max_length=50, help_text="Nom du fichier scratch (sans .sb2) situé dans '/static/scratch/files/projects'")
     projectGameGoal = models.TextField(help_text="Définir l'ensemble des règles du jeu")
     projectDifficulty = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)], help_text="Difficulté de réalisation du projet (note sur 10)")
 

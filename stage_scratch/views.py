@@ -67,6 +67,7 @@ def project(request, project_name):
         'allConceptName': getAllconceptsName(),
         'project': project,
         'projectSprites': projectSprites,
+        'admin': isLocalhost(request),
     }
     return render(request, 'project.html', context)
 
