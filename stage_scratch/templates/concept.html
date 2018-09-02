@@ -108,8 +108,9 @@
                         {# Demo preview if given (offline try first, if not given try online) #}
                         {% if exercise.exerciseScratchFile %}
                             {% autoescape off %}
-                                {# TODO : find a way to put it into a demo collapse #}
-                                {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
+                                {% startSpoil "Démo" "DemoEx"|addStr:forloop.counter %}
+                                    {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
+                                {% stopSpoil %}
                                 {# TODO : add a buttton to switch to edit mode ? only in admin mode (call ASeditMode with current id) #}
                             {% endautoescape %}
                         {% elif exercise.exerciseOnlineProjectId %}

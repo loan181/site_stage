@@ -133,6 +133,29 @@ def spoil(title, content, visible=True, idTitle=None):
     return indexReplace(modSpoil, (title, idTitle, content))
 
 @register.simple_tag
+def startSpoil(title, uniqueToggleId):
+    return """
+    <div class="card">
+    <div class="card-header" data-toggle="collapse" data-target="#{}Collapsable">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button">
+            {}
+        </button>
+      </h5>
+    </div>
+    <div id="{}Collapsable" class="collapse">
+      <div class="card-body">
+    """.format(uniqueToggleId, title, uniqueToggleId)
+
+@register.simple_tag
+def stopSpoil():
+    return """
+            </div>
+        </div>
+    </div>
+    """
+
+@register.simple_tag
 def scratchOfflineProject(filePath, category, showEditor=False):
     ret = ""
     generatedID = "scratch-flash-"+filePath.replace("/", "-")
