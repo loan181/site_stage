@@ -9,7 +9,7 @@
     <pre class="blocks"></pre> <!-- Je sais pas pourquoi, mais les blocs ne se montre pas bien sans ça -->
 
     {% if admin %}
-        <p class="text-muted lead">Vous êtes sur la page des concept comme administrateur, tu pourra voir les solutions aux exercices et accéder aux codes sources des projets Scratch</p>
+        <p class="text-muted lead hideIfNotAdmin">Vous êtes sur la page des concept comme administrateur, tu pourra voir les solutions aux exercices et accéder aux codes sources des projets Scratch</p>
     {% endif  %}
     <h1 class="mt-5"> <img class="header-icn" src="{% static "img/icons/concept/"|add:concept.conceptIcon %}"/> {{ concept.conceptName }} </h1>
 
@@ -50,10 +50,10 @@
                                 {{ example.exampleText|replaceBBCode|safe|linebreaks }}
                                 {% if admin %}
                                     {% if example.exampleOnlineProjectId %}
-                                        <a class="btn btn-info" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                        <a class="btn btn-info hideIfNotAdmin" href="{{ example.exampleOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
                                     {% endif %}
                                     {% if example.exampleScratchFile %}
-                                        <a class="btn btn-info" onclick="loadFile($(this).parent().parent().find('embed')[0])" role="button">Re-charger le projet</a>
+                                        <a class="btn btn-info hideIfNotAdmin" onclick="loadFile($(this).parent().parent().find('embed')[0])" role="button">Re-charger le projet</a>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -114,7 +114,7 @@
                                 {% startSpoil "Démo" "DemoEx"|addStr:forloop.counter %}
                                     {% scratchOfflineProject exercise.exerciseScratchFile "exercices" %}
                                     {% if admin %}
-                                        <a class="btn btn-info" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
+                                        <a class="btn btn-info hideIfNotAdmin" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
                                     {% endif %}
                                 <a class="btn btn-info" onclick="loadFile($(this).parent().find('embed')[0])" role="button">Re-charger le projet</a>
                                 {% stopSpoil %}
@@ -123,7 +123,7 @@
                             {% autoescape off %}
                                 {% spoil "Démo" exercise.exerciseOnlineProjectId|scratchOnlineProject|safe %}
                                 {% if admin %}
-                                    <a class="btn btn-info" href="{{ exercise.exerciseOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
+                                    <a class="btn btn-info hideIfNotAdmin" href="{{ exercise.exerciseOnlineProjectId|onlineProjectLink }}" target="_blank" role="button">Consulter en ligne</a>
                                 {% endif %}
                             {% endautoescape %}
                         {% endif  %}
@@ -136,9 +136,11 @@
                         {% endautoescape %}
 
                         {% if admin and exercise.exerciceSolution %}
+                            <div class="hideIfNotAdmin">
                             {% autoescape off %}
                                 {% spoil "Solution" exercise.exerciceSolution|scratchBlocks|safe %}
                             {% endautoescape %}
+                            </div>
                         {% endif  %}
                     </div>
                 </div>

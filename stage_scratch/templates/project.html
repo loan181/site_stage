@@ -7,7 +7,7 @@
 {% block content %}
     {# TODO : ajouter les concepts nécessaires à la réalisation du projet (coordonnées, orientation, etc.) #}
     {% if admin %}
-        <p class="text-muted lead">Vous êtes sur la page des projets comme administrateur</p>
+        <p class="text-muted lead hideIfNotAdmin">Vous êtes sur la page des projets comme administrateur</p>
     {% endif %}
 
     <h1> {{ project.projectTitle }} </h1>
@@ -23,7 +23,7 @@
         {% startSpoil "Démo" "demoProject" %}
             {% scratchOfflineProject project.projectScratchFile "projects" %}
             {% if admin %}
-                <a class="btn btn-info" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
+                <a class="btn btn-info hideIfNotAdmin" onclick="toggleEdition($(this).parent().find('embed')[0])" role="button">Toggle édition</a>
             {% endif %}
             <a class="btn btn-info" onclick="loadFile($(this).parent().find('embed')[0])" role="button">Re-charger le projet</a>
         {% stopSpoil %}
