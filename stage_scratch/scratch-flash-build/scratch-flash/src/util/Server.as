@@ -67,7 +67,7 @@ public class Server implements IServer {
 
 	// No default URLs
 	protected function setDefaultURLs():void {
-		URLs.siteCdnPrefix = 'http://127.0.0.1:8000';
+		URLs.siteCdnPrefix = 'https://roue-de-secours.github.io';
 		URLs.staticFiles = '/static/scratch/';
 	}
 

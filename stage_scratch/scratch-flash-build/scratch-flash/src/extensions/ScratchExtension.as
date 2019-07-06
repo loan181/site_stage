@@ -51,7 +51,7 @@ public class ScratchExtension {
 		_displayName = val;
 	}
 
-	public var host:String = '127.0.0.1'; // most extensions run on the local host
+	public var host:String = 'roue-de-secours.github.io'; // most extensions run on the local host
 	public var port:int = 0;
 	public var id:uint = 0;
 	public var blockSpecs:Array = [];
